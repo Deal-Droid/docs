@@ -1,107 +1,99 @@
 ---
 title: Overview
-description: An introduction to DocKit and its key features for building beautiful documentation sites.
+description: An introduction to Dealdroid
+sidebar:
+  order: 1
 ---
 
-DocKit docs are rendered from MDX files defined as our starter kits. 
+DealDroid is your AI Sales Agent — built to replace and enhance human sales staff so your business can engage, sell, and support customers instantly, 24/7, in 120+ languages, and across multiple channels.
 
-![A rocketship in space](@/assets/overview.png)
-
-
+![Product page](@/assets/getting_start/products.png)
 
 import Grid from "~/components/user-components/Grid.astro";
 import Card from "~/components/user-components/NewCard.astro";
 
 <Grid columns={2}>
-  <Card title="Well organized" icon="rocket" iconColor="#FF8585" size='sm' >
-    The transparency of our data will help you make the informed decisions you need to.
+  <Card title="Jump Start" icon="rocket" iconColor="#FF8585" size="sm">
+    Launch in 10 minutes with preset templates and easy setup.
   </Card>
-  <Card title="Other feature" icon="seti:json" iconColor="#7BE1A4" size='sm'>
-   The transparency of our data will help you make the informed decisions you need to.
+  <Card title="Flexibility" icon="seti:json" iconColor="#7BE1A4" size="sm">
+    Customize your bot's personality, sales scripts, and customer engagement
+    strategies to match your business needs.
   </Card>
-
 </Grid>
-
-
 
 ---
 
-## Start with an idea
+## What Problems Does DealDroid Solve?
 
-DocKit docs are rendered from MDX files and configurations defined as our starter kits. We use GitHub with integrate your docs with your code, and make source control effortless. Onboard through the dashboard or clone our starter kit to get started.
+Running a business means juggling countless challenges:
 
-## Iterate quickly by building product
+- Hiring and training sales staff is expensive and time-consuming
+- Staff may leave, forget details, or make costly mistakes
+- Customers ask repetitive questions, often after-hours or in different languages
+- Slow or poor responses = lost sales
+- Scaling human teams to handle growth is unsustainable
 
-Instead of distributing our components as the npm packages we provide all the source codes directly for your project. This gives you:
+> DealDroid was created to solve these problems by giving every business the power to own and train their own AI sales agent — one that behaves like your best salesperson, but never sleeps.
 
-- Complete control over the implementation
-- Ability to customize components to fit your needs
-- No need to wait for package updates or new releases
-- Direct access to modify styles and behavior
+## What Does DealDroid Do?
 
+- Detects customer **intent** and sales **funnel stage** (interest, consideration, conversion)
+- Recommends **products or services** based on their needs
+- Answers **common questions** (pricing, shipping, policies, etc.)
+- Handles **objections and hesitations** with smart replies
+- Guides customers through **checkout, booking, or inquiry** steps
+- Works across platforms like **LINE, Facebook Messenger, WhatsApp, and website chat**
 
-## We are built for development
+## How It's Different
 
-DocKit docs are rendered from MDX files and configurations defined as our starter kits. We use GitHub with integrate your docs with your code, and make source control effortless. Onboard through the dashboard or clone our starter kit to get started.
+Most bots feel scripted and robotic. DealDroid is different because:
 
+- It understands the customer's language — across 120+ languages
+- It adapts to where the customer is in their decision-making process using proven sales funnel logic
+- It follows your brand's voice and messaging
+- It's built on intent detection — making it one of the only AI Sales Agents that truly understands what the customer wants
+- It applies real-world sales psychology — empathizing with needs, handling objections, and guiding users toward conversion like a real salesperson would
 
-```js
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+## Why It Works
 
-export default defineConfig({
-	integrations: [
-		starlight({
-			title: 'My delightful docs site',
-		}),
-	],
-});
-```
+- ⚡ Responds instantly — even after hours
+- 🤖 Handles 1,000s of customers at once
+- 💬 Empathizes with the customer’s mood and needs
+- 🧠 Learns your product catalog and sales strategy
+- 🌐 Supports global expansion with multi-language support
 
+## Who Is It For?
 
-## Pull request page lists
+DealDroid is designed for any business that wants to increase sales without increasing headcount. That includes:
 
-Instead of distributing our components as the npm packages we provide all the source codes directly for your project. This gives you:
+- **Retail & E-commerce**
+- **Hospitality & Hotels**
+- **Sales Coaches & Consultants**
+- **Real Estate Agents**
+- **Legal & Professional Services**
 
+## What If It Can't Answer?
 
-- **/blog/** - Contains the blog Markdown files. You can delete the directory if you've disabled the blog plugin, or you can change its name after setting the path option. More details can be found in the blog guide.
+Don't worry. DealDroid knows its limits.
 
-- **/docs/** - Contains the Markdown files for the docs. Customize the order of the docs sidebar in sidebars.js you can delete the directory if you've disabled the docs plugin, or you can change its name after setting path option.
+- If it hits a **forbidden topic**, gets an **image**, or can't understand the query — it stops
+- It sends a **fallback message** and **notifies a human** to take over the chat
 
-- **/src/pages** - Any JSX/TSX/MDX file within this directory will be converted into a website page. More details can be found in the  pages guide.
+## All the powerful AI features you need
 
-- **/sidebars.js** - Used by the documentation to specify the order of documents in the sidebar.
+Unlike generic AI chat tools, DealDroid is **designed to sell**:
 
-## Custom code versions
-
-DocKit docs are rendered from MDX files and configurations defined as our starter kits. We use GitHub with integrate your docs with your code, and make source control effortless. Onboard through the dashboard or clone our starter kit to get started.
-
-
-
-
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-<Tabs syncKey="pkg">
-<TabItem label="npm">
-
-```sh
-npm create astro@latest -- --template starlight
-```
-
-</TabItem>
-<TabItem label="pnpm">
-
-```sh
-pnpm create astro --template starlight
-```
-
-</TabItem>
-<TabItem label="Yarn">
-
-```sh
-yarn create astro --template starlight
-```
-
-</TabItem>
-</Tabs>
+| Feature                           | Description                                                                                                                         |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **Intent Detection**              | Understands what the customer wants and replies based on funnel stage                                                               |
+| **Smart Product Recommendations** | Suggests the best match from your catalog                                                                                           |
+| **Roleplay Sales Training**       | Train the bot using sales scripts or Q&A sets                                                                                       |
+| **Brand Voice Control**           | Every reply sounds like your brand                                                                                                  |
+| **Knows your company info**       | Train the AI using your brand story, policies, customer support scripts, and FAQs                                                   |
+| **Multi-Channel Ready**           | Facebook, WhatsApp, LINE, and more — connect in under 5 minutes                                                                     |
+| **120+ Languages**                | Sell globally from day one                                                                                                          |
+| **Real-Time Dashboard**           | View conversations, update settings, and monitor chats                                                                              |
+| **Multi-Format Responses**        | Text, images, carousels, quick replies, links, and more                                                                             |
+| **Anti-BS Technology**            | We've spent hundreds of hours refining DealDroid to ensure it never hallucinates or makes things up like other solutions out there. |
+| **Webhook Integration**           | Connect with external systems                                                                                                       |

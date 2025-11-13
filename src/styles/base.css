@@ -1,9 +1,12 @@
 html {
   @apply text-base-sm md:text-base;
+  overscroll-behavior: none;
+  scroll-behavior: auto;
 }
 
 body {
   @apply bg-lightmode-body text-base dark:bg-body font-primary font-normal leading-relaxed text-lightmode-text dark:text-text;
+  overscroll-behavior: none;
 }
 
 h1,
@@ -12,7 +15,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply  font-bold leading-tight;
+  @apply font-bold leading-tight;
   color: var(--sl-color-white);
 }
 

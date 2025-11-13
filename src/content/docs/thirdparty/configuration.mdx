@@ -4,8 +4,37 @@ description: An overview of all the configuration options Starlight supports.
 
 sidebar:
   label: "[seti:lock] Configuration"
-
 ---
+
+## Custom code versions
+
+DocKit docs are rendered from MDX files and configurations defined as our starter kits. We use GitHub with integrate your docs with your code, and make source control effortless. Onboard through the dashboard or clone our starter kit to get started.
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+<Tabs syncKey="pkg">
+<TabItem label="npm">
+
+```sh
+npm create astro@latest -- --template starlight
+```
+
+</TabItem>
+<TabItem label="pnpm">
+
+```sh
+pnpm create astro --template starlight
+```
+
+</TabItem>
+<TabItem label="Yarn">
+
+```sh
+yarn create astro --template starlight
+```
+
+</TabItem>
+</Tabs>
 
 ## Configure the `starlight` integration
 
@@ -796,5 +825,3 @@ import { i18nSchema } from "@astrojs/starlight/schema";
 
 Extend Starlight’s i18n schema with additional fields.
 See [“Extend translation schema”](/guides/i18n/#extend-translation-schema) for more details about using the `extend` option.
-
-
