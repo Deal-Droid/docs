@@ -124,3 +124,11 @@
 @import "./components.css";
 @import "./button.css";
 
+/* Enable word wrap for code blocks */
+@layer components {
+  .sl-markdown-content pre code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
