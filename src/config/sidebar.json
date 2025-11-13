@@ -52,6 +52,13 @@
       ]
     },
     {
+      "label": "FAQ",
+      "translations": {
+        "th": "คำถามที่พบบ่อย"
+      },
+      "autogenerate": { "directory": "faq" }
+    },
+    {
       "label": "Third-Party",
       "translations": {
         "th": "บุคคลที่สาม"
