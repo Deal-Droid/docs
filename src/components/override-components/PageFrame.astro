@@ -110,7 +110,7 @@ const { hasSidebar } = Astro.locals.starlightRoute;
     }
 
     :global([data-has-sidebar]) .main-frame {
-      padding-top: 2rem;
+      padding-top: 0rem;
     }
     @media (max-width: 1156px) {
       :global([data-has-sidebar]) .main-frame {
@@ -121,13 +121,14 @@ const { hasSidebar } = Astro.locals.starlightRoute;
     .sidebar-pane {
       visibility: var(--sl-sidebar-visibility, hidden);
       position: sticky;
-      height: 80vh;
+      height: calc(100vh - var(--sl-nav-height, 0px));
       z-index: var(--sl-z-index-menu);
       scrollbar-width: none;
       background-color: var(--sl-color-black);
       overflow-y: scroll;
       inset-inline-start: 0;
       width: 100%;
+      padding-top: 2rem;
       padding-bottom: 2rem;
     }
     @media (max-width: 1024px) {
@@ -164,7 +165,9 @@ const { hasSidebar } = Astro.locals.starlightRoute;
         width: var(--sl-sidebar-width);
         background-color: transparent;
         /* inset-block: calc(var(--sl-nav-height) + 110px) 0; */
-        inset-block: calc(110px) 0;
+        inset-block: 0;
+        top: 0;
+        height: 100vh;
       }
     }
   }
