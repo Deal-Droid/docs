@@ -8,6 +8,7 @@ import config from "./src/config/config.json" assert { type: "json" };
 import social from "./src/config/social.json";
 import locals from "./src/config/locals.json";
 import sidebar from "./src/config/sidebar.json";
+import embeds from "astro-embed/integration";
 
 import { fileURLToPath } from "url";
 
@@ -25,6 +26,7 @@ export default defineConfig({
     service: { entrypoint: "astro/assets/services/noop" },
   },
   integrations: [
+    embeds(),
     starlight({
       title,
       logo: {
