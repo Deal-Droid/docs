@@ -9,61 +9,54 @@
         {
           "label": "[seti:vite] Introduction",
           "translations": {
-            "fr": "[seti:vite] Introduction"
+            "th": "[seti:vite] บทนำ"
           },
           "autogenerate": { "directory": "getting-started/introduction" }
         },
         {
-          "label": "[setting] Global Settings",
+          "label": "[setting] Connect",
           "translations": {
-            "fr": "[setting] Paramètres globaux"
+            "th": "[setting] การเชื่อมต่อ"
           },
-          "autogenerate": { "directory": "getting-started/global-settings" }
+          "autogenerate": { "directory": "getting-started/connection" }
         },
         {
-          "label": "[seti:plan] Navigation",
+          "label": "[seti:plan] Monitoring",
           "translations": {
-            "fr": "[seti:plan] Navigation"
+            "th": "[seti:plan] Monitoring"
           },
-          "slug": "getting-started/navigation"
+          "slug": "getting-started/monitoring"
         }
       ]
     },
     {
-      "label": "Content",
+      "label": "Droid tuning",
       "translations": {
-        "fr": "Contenu"
+        "th": "ปรับแต่งดรอย"
       },
       "items": [
         {
-          "label": "[document] Components and Block",
+          "label": "[document] General",
           "translations": {
-            "fr": "[document] Composants et blocs"
+            "th": "[document] ทั่วไป"
           },
-          "autogenerate": { "directory": "contents/components" }
+          "autogenerate": { "directory": "tuning/general" }
         },
         {
-          "label": "[pencil] Editing Content",
+          "label": "[pencil] Advance",
           "translations": {
-            "fr": "[pencil] Édition du contenu"
+            "th": "[pencil] ขั้นสูง"
           },
-          "autogenerate": { "directory": "contents/editing" }
+          "autogenerate": { "directory": "tuning/advance" }
         }
       ]
     },
     {
-      "label": "Reference",
+      "label": "Third-Party",
       "translations": {
-        "fr": "Référence"
+        "th": "บุคคลที่สาม"
       },
-      "autogenerate": { "directory": "reference" }
-    },
-    {
-      "label": "Configurations",
-      "translations": {
-        "fr": "Configurations"
-      },
-      "autogenerate": { "directory": "configurations" }
+      "autogenerate": { "directory": "thirdparty" }
     }
   ]
 }

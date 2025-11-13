@@ -48,7 +48,6 @@ const { hasSidebar } = Astro.locals.starlightRoute;
   <header class={"header" + (hasSidebar ? " has-sidebar" : " no-sidebar")}>
     <slot name="header" />
   </header>
-  {hasSidebar && <SidebarNav />}
   <div class="main-frame">
     <div class="container flex relative">
       {
@@ -164,8 +163,8 @@ const { hasSidebar } = Astro.locals.starlightRoute;
         --sl-sidebar-visibility: visible;
         width: var(--sl-sidebar-width);
         background-color: transparent;
-        inset-block: calc(var(--sl-nav-height) + 110px) 0;
-       
+        /* inset-block: calc(var(--sl-nav-height) + 110px) 0; */
+        inset-block: calc(110px) 0;
       }
     }
   }

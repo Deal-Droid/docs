@@ -7,6 +7,21 @@
     {
       "name": "Documentation",
       "url": "/getting-started/introduction/overview/"
+    },
+    {
+      "name": "Reference",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Configuration",
+          "url": "/reference/configuration/"
+        },
+        {
+          "name": "Plugins Reference",
+          "url": "/reference/plugin/"
+        }
+      ]
     }
   ],
   "footer": {

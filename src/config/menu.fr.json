@@ -2,26 +2,11 @@
   "main": [
     {
       "name": "Accueil",
-      "url": "/"
+      "url": "https://dealdroid.net"
     },
     {
       "name": "Documentation",
       "url": "/fr/getting-started/introduction/overview/"
-    },
-    {
-      "name": "Référence",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Configuration",
-          "url": "/fr/reference/configuration/"
-        },
-        {
-          "name": "Référence des plugins",
-          "url": "/fr/reference/plugin/"
-        }
-      ]
     }
   ],
   "footer": {

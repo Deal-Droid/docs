@@ -14,8 +14,7 @@ import { fileURLToPath } from "url";
 const { site } = config;
 const { title, logo, logo_darkmode } = site;
 
-export const locales = locals
-
+export const locales = locals;
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,7 +27,7 @@ export default defineConfig({
       logo: {
         light: logo,
         dark: logo_darkmode,
-        alt: "DocKit Logo",
+        alt: "Dealdroid Logo",
       },
       // @ts-ignore
       social: social.main || [],
@@ -41,18 +40,16 @@ export default defineConfig({
         Hero: "./src/components/override-components/Hero.astro",
         PageFrame: "./src/components/override-components/PageFrame.astro",
         PageSidebar: "./src/components/override-components/PageSidebar.astro",
-        TwoColumnContent: "./src/components/override-components/TwoColumnContent.astro",
+        TwoColumnContent:
+          "./src/components/override-components/TwoColumnContent.astro",
         ContentPanel: "./src/components/override-components/ContentPanel.astro",
         Pagination: "./src/components/override-components/Pagination.astro",
         Sidebar: "./src/components/override-components/Sidebar.astro",
-        
-        
       },
-      
     }),
   ],
   vite: {
-    plugins: [tailwindcss(),viewTransitions()],
+    plugins: [tailwindcss(), viewTransitions()],
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),

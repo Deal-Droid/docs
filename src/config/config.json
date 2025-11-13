@@ -1,11 +1,11 @@
 {
   "site": {
-    "title": "DocKit",
-    "logo": "/src/assets/logo-light.svg",
-    "logo_darkmode": "/src/assets/logo-dark.svg",
-    "logo_width": "127",
+    "title": "Dealdroid Document",
+    "logo": "/src/assets/logo.svg",
+    "logo_darkmode": "/src/assets/logo.svg",
+    "logo_width": "32",
     "logo_height": "32",
-    "logo_text": "DocKit"
+    "logo_text": "Dealdroid"
   },
 
   "settings": {
@@ -18,15 +18,15 @@
       "enable": true,
       "action": "#"
     },
-    "copyright": "Designed and Developed by <a class=\"text-primary hover:underline no-underline\" href=\"https://themefisher.com\" target=\"_blank\" rel=\"noopener\" aria-label=\"Themefisher\">Themefisher</a> Copyright &copy; 2025."
+    "copyright": "Document by <a class=\"text-primary hover:underline no-underline\" href=\"https://dealdroid.net\" target=\"_blank\" rel=\"noopener\" aria-label=\"Themefisher\">Dealdroid</a> Copyright &copy; 2025."
   },
 
   "navigation_button": {
-    "enable": true,
-    "label": "Get Started",
+    "enable": false,
+    "label": "Login",
     "translations": {
-      "fr": "Erste Schritte"
+      "th": "เข้าสู่ระบบ"
     },
-    "link": "/getting-started/introduction/overview/"
+    "link": "https://happy.dealdroid.net"
   }
 }

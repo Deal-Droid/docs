@@ -119,6 +119,9 @@ const hasSidebar = Astro.locals.starlightRoute.hasSidebar;
   <div
     class="order-1 ml-auto flex items-center md:order-2 lg:ml-0 navbar-actions"
   >
+    <LanguageSelect />
+    {settings.theme_switcher && <ThemeSwitch className="mx-6" />}
+
     {
       hasSidebar && settings.search && (
         <div class="search-bar">
@@ -126,10 +129,6 @@ const hasSidebar = Astro.locals.starlightRoute.hasSidebar;
         </div>
       )
     }
-
-    {!hasSidebar && <LanguageSelect />
-    }
-    {settings.theme_switcher && <ThemeSwitch className="mx-6" />}
 
     {
       navigation_button.enable && (
