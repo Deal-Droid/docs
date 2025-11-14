@@ -1,4 +1,203 @@
 ---
-title: Line
-description: An introduction to DocKit and its key features for building beautiful documentation sites.
+title: Connect LINE Official Account
+description: Step-by-step guide to connect your LINE Official Account with DealDroid so your AI Agent can respond to customer messages automatically.
+sidebar:
+  order: 3
+  label: Connect LINE OA
 ---
+
+Ready to let your AI Agent handle customer chats on LINE?
+
+Connecting a LINE Channel allows your LINE Official Account to send customer conversations to DealDroid. Unlike Facebook, the integration process requires a bit more setup — you'll need to configure settings in the [LINE Developers Console](https://developers.line.biz) first, then bring that information into DealDroid.
+
+Don't worry! We'll walk you through it step by step. 🚀
+
+---
+
+## Why Connect LINE?
+
+- 💬 **Respond 24/7** — Your AI Agent handles every message on your LINE OA, even when you're asleep
+- ⚡ **Never miss a customer** — Instant replies mean no one waits
+- 🎯 **Sell around the clock** — AI presents products and closes sales automatically
+- 📊 **Unified management** — See all conversations in one place inside DealDroid
+
+---
+
+## Connection Overview
+
+Connecting LINE involves three main steps:
+
+1. **Create a LINE Channel in DealDroid** — Set up a placeholder for your connection details
+2. **Access the LINE Developers Console** — Log in to LINE's developer platform
+3. **Exchange credentials between both systems** — Copy and paste the required information
+
+Let's get started!
+
+---
+
+## Step 1: Create a LINE Channel in DealDroid
+
+![LINE Channels Page](@/assets/general/line/pic_1.png)
+
+1. Navigate to the **Channels** page, where all your connected communication channels appear
+2. Click the blue **Create Line Channel** button to start creating a new channel
+
+> **Note:** This page displays all your channels — both Facebook and LINE — in one place.
+
+---
+
+### Set Channel Name and Image
+
+![Create LINE Channel Form](@/assets/general/line/pic_2.png)
+
+1. **Channel Name** — Choose a memorable name like "Pet Store LINE" or "Downtown Branch LINE OA"
+2. **Channel Image** — Upload a logo or representative image for this LINE OA
+
+> **Tip:** Use clear, descriptive names so you can easily identify channels when you have multiple connections.
+
+After entering the name and selecting an image, **don't click Create Line Channel yet!**
+We need to gather credentials from the LINE Developers Console first. 👇
+
+---
+
+## Step 2: Access the LINE Developers Console
+
+![LINE Developers Homepage](@/assets/general/line/pic_3.png)
+
+1. Open [LINE Developers](https://developers.line.biz) in your browser
+2. If you're not logged in, click **Log in** and sign in with your LINE account
+3. Once logged in, click **Console** to access the management dashboard
+
+> **Important:** You must have a LINE Developers account. If you don't have one yet, you can create it for free on this website.
+
+---
+
+## Step 3: Exchange Connection Credentials
+
+Now we'll copy information back and forth between LINE Console and DealDroid. You'll need four pieces of data:
+
+1. **Channel ID** — Your LINE OA's unique identifier
+2. **Channel Secret** — A secret key for authentication
+3. **Webhook URL** — The address where LINE sends messages to DealDroid
+4. **Channel Access Token** — The key DealDroid uses to send messages back
+
+---
+
+### 3.1 Copy the Channel ID
+
+![LINE Providers Dashboard](@/assets/general/line/pic_4.png)
+
+1. In the Console, select the **Providers** or **Dashboard** menu to view all your channels
+2. Click on the **LINE Official Account** you want to connect
+
+---
+
+![LINE Channel Basic Settings](@/assets/general/line/pic_5.png)
+
+1. **Copy the Channel ID** displayed on the screen (it's a long numeric string)
+2. **Paste it into the Channel ID field** in DealDroid
+
+> **Note:** The Channel ID is located in the Basic settings section of your channel.
+
+---
+
+### 3.2 Copy the Channel Secret
+
+![LINE Channel Secret](@/assets/general/line/pic_6.png)
+
+On the same page, scroll down slightly:
+
+1. Find the **Channel secret** section and click the button to **Copy** the value
+2. **Paste it into the Channel Secret field** in DealDroid
+
+> **Important:** The Channel Secret is confidential. Never share it with anyone!
+
+---
+
+### 3.3 Configure the Webhook URL
+
+This step is reversed — we copy from DealDroid and paste into LINE Console.
+
+![LINE Messaging API Settings](@/assets/general/line/pic_7.png)
+
+1. **Copy the Webhook URL** from DealDroid
+   > **Note:** Make sure the URL ends with your Channel ID number
+2. Return to the LINE Console and click the **Messaging API** tab
+3. Find the Webhook settings section and click **Edit** to open the popup
+4. **Paste the Webhook URL** you copied from DealDroid
+5. Click **Update** to save
+6. **Enable Use webhook** by toggling it to Enabled (green)
+
+> **Tip:** The Webhook URL is the address where LINE sends customer messages to DealDroid every time someone chats with your OA.
+
+---
+
+### 3.4 Copy the Channel Access Token
+
+![LINE Channel Access Token](@/assets/general/line/pic_8.png)
+
+On the same **Messaging API** page, scroll to the bottom:
+
+1. Find the **Channel access token (long-lived)** section
+2. If no token exists yet, click **Issue** to generate one
+3. **Copy the token** that appears (it will be a very long string)
+4. **Paste it into the Channel Access Token field** in DealDroid
+
+> **Important:** This token is critical — DealDroid uses it to send messages back to your customers. Keep it secure!
+
+---
+
+### 3.5 Create the Channel
+
+![DealDroid Create Button](@/assets/general/line/pic_2.png)
+
+After filling in all four required fields:
+
+- Channel Name ✅
+- Channel Image ✅
+- Channel ID ✅
+- Channel Secret ✅
+- Webhook URL ✅ (configured in LINE Console)
+- Channel Access Token ✅
+
+Click the blue **Create Line Channel** button to finalize the connection.
+
+---
+
+## You're All Set! 🎉
+
+**Your AI Sales Agent is now live on your LINE Official Account!**
+
+From this moment forward, DealDroid will respond to every message that comes into your LINE OA using the AI Agent you've configured. Responses will be based on:
+
+- 📚 **Knowledge Base** — The information you've taught your AI
+- 🛍️ **Products** — Your product catalog and services
+- 💬 **Sales Script** — The sales scripts you've defined
+- 🎯 **Persona** — The personality and tone of your AI Agent
+
+---
+
+## What's Next?
+
+After connecting LINE successfully, try these next steps:
+
+1. **Test it out** — Send a message to your LINE OA and see if the AI responds
+2. **Add more knowledge** — Teach your AI about your business, policies, and FAQs
+3. **Add products** — Upload your product catalog so the AI can help with sales
+4. **Refine your sales script** — Customize the conversation flow to match your brand
+
+---
+
+## Troubleshooting
+
+If you encounter issues during setup, check these common points:
+
+- ✅ Is the **Channel ID** entered correctly?
+- ✅ Did you copy both the **Channel Secret** and **Access Token** completely?
+- ✅ Does the **Webhook URL** end with your Channel ID number?
+- ✅ Is **Use webhook** enabled (green) in the LINE Console?
+- ✅ Did you generate a **long-lived** Channel Access Token?
+
+If you're still having trouble, contact the DealDroid team anytime. We're here to help!
+
+Your AI sales agent is ready to work. Let's put it to the test! 😊
