@@ -54,9 +54,9 @@ export default defineConfig({
       },
       social: [
         {
-          icon: "github",
-          label: "GitHub",
-          href: "https://github.com/withastro/starlight",
+          icon: "discord",
+          label: "Discord",
+          href: "https://discord.gg/ZnGSSbQg4N",
         },
       ],
       sidebar: sidebar.main,
