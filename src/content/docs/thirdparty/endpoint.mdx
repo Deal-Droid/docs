@@ -1,376 +1,223 @@
 ---
-title: "Call Endpoint API"
-description: An overview of the Starlight plugin API.
+title: Message Endpoint API
+description: Send messages to your DealDroid bot programmatically via REST API
 sidebar:
-  label: "Endpoint"
+  order: 1
 ---
 
-Starlight plugins can customize Starlight configuration, UI, and behavior, while also being easy to share and reuse.
-This reference page documents the API that plugins have access to.
+Need to send messages to your DealDroid bot from your own application? The Message Endpoint API lets you programmatically send messages on behalf of customers, allowing you to integrate DealDroid into your custom workflows, mobile apps, or third-party systems.
 
-Learn more about using a Starlight plugin in the [Configuration Reference](/reference/configuration/#plugins) or visit the [plugins showcase](/resources/plugins/#plugins) to see a list of available plugins.
+---
 
-## Quick API Reference
+## What Can You Do With the Endpoint API?
 
-A Starlight plugin has the following shape.
-See below for details of the different properties and hook parameters.
+The Message Endpoint API allows you to:
 
-```ts
-interface StarlightPlugin {
-  name: string;
-  hooks: {
-    "i18n:setup"?: (options: {
-      injectTranslations: (
-        translations: Record<string, Record<string, string>>
-      ) => void;
-    }) => void | Promise<void>;
-    "config:setup": (options: {
-      config: StarlightUserConfig;
-      updateConfig: (newConfig: StarlightUserConfig) => void;
-      addIntegration: (integration: AstroIntegration) => void;
-      addRouteMiddleware: (config: {
-        entrypoint: string;
-        order?: "pre" | "post" | "default";
-      }) => void;
-      astroConfig: AstroConfig;
-      command: "dev" | "build" | "preview";
-      isRestart: boolean;
-      logger: AstroIntegrationLogger;
-      useTranslations: (lang: string) => I18nT;
-      absolutePathToLang: (path: string) => string;
-    }) => void | Promise<void>;
-  };
-}
+- 📱 **Build custom chat interfaces** — Create your own mobile app or web chat UI
+- 🔗 **Connect external systems** — Integrate with CRM, support tickets, or other platforms
+- 🤖 **Automate conversations** — Trigger bot interactions from your backend systems
+- 💬 **Send messages on behalf of users** — Proxy customer messages through your infrastructure
+- 🧪 **Test your bot** — Programmatically test conversation flows
+
+---
+
+## Getting Started
+
+### Base URL
+
+All API endpoints are accessed through:
+
+```
+https://your-dealdroid.com/api/droids/:droidId/endpoint/
 ```
 
-## `name`
+Replace `:droidId` with your actual Droid ID (you can find this in your DealDroid dashboard).
 
-**type:** `string`
+### Authentication
 
-A plugin must provide a unique name that describes it. The name is used when [logging messages](#logger) related to this plugin and may be used by other plugins to detect the presence of this plugin.
+All endpoints require a **Bearer token** in the `Authorization` header.
 
-## `hooks`
+**Example header:**
 
-Hooks are functions which Starlight calls to run plugin code at specific times.
-
-To get the type of a hook's arguments, use the `HookParameters` utility type and pass in the hook name.
-In the following example, the `options` parameter is typed to match the arguments passed to the `config:setup` hook:
-
-```ts
-import type { HookParameters } from "@astrojs/starlight/types";
-
-function configSetup(options: HookParameters["config:setup"]) {
-  options.useTranslations("en");
-}
+```
+Authorization: Bearer <your-token>
 ```
 
-### `i18n:setup`
+**Important:** Keep your token secure and never expose it in client-side code or public repositories.
 
-Plugin internationalization setup function called when Starlight is initialized.
-The `i18n:setup` hook can be used to inject translation strings so a plugin can support different locales.
-These translations will be available via [`useTranslations()`](#usetranslations) in the `config:setup` hook and in UI components via [`Astro.locals.t()`](/guides/i18n/#using-ui-translations).
+---
 
-The `i18n:setup` hook is called with the following options:
+## Get Your API Token
 
-#### `injectTranslations`
-
-**type:** `(translations: Record<string, Record<string, string>>) => void`
-
-A callback function to add or update translation strings used in Starlight’s [localization APIs](/guides/i18n/#using-ui-translations).
-
-In the following example, a plugin injects translations for a custom UI string named `myPlugin.doThing` for the `en` and `fr` locales:
-
-```ts {6-13} /(injectTranslations)[^(]/
-// plugin.ts
-export default {
-  name: "plugin-with-translations",
-  hooks: {
-    "i18n:setup"({ injectTranslations }) {
-      injectTranslations({
-        en: {
-          "myPlugin.doThing": "Do the thing",
-        },
-        fr: {
-          "myPlugin.doThing": "Faire le truc",
-        },
-      });
-    },
-  },
-};
-```
-
-To use the injected translations in your plugin UI, follow the [“Using UI translations” guide](/guides/i18n/#using-ui-translations).
-If you need to use UI strings in the context of the [`config:setup`](#configsetup) hook of your plugin, you can use the [`useTranslations()`](#usetranslations) callback.
-
-Types for a plugin’s injected translation strings are generated automatically in a user’s project, but are not yet available when working in your plugin’s codebase.
-To type the `locals.t` object in the context of your plugin, declare the following global namespaces in a TypeScript declaration file:
-
-```ts
-// env.d.ts
-declare namespace App {
-  type StarlightLocals = import("@astrojs/starlight").StarlightLocals;
-  // Define the `locals.t` object in the context of a plugin.
-  interface Locals extends StarlightLocals {}
-}
-
-declare namespace StarlightApp {
-  // Define the additional plugin translations in the `I18n` interface.
-  interface I18n {
-    "myPlugin.doThing": string;
-  }
-}
-```
-
-You can also infer the types for the `StarlightApp.I18n` interface from a source file if you have an object containing your translations.
-
-For example, given the following source file:
-
-```ts title="ui-strings.ts"
-export const UIStrings = {
-  en: { "myPlugin.doThing": "Do the thing" },
-  fr: { "myPlugin.doThing": "Faire le truc" },
-};
-```
-
-The following declaration would infer types from the English keys in the source file:
-
-```ts title="env.d.ts"
-declare namespace StarlightApp {
-  type UIStrings = typeof import("./ui-strings").UIStrings.en;
-  interface I18n extends UIStrings {}
-}
-```
-
-### `config:setup`
-
-Plugin configuration setup function called when Starlight is initialized (during the [`astro:config:setup`](https://docs.astro.build/en/reference/integrations-reference/#astroconfigsetup) integration hook).
-The `config:setup` hook can be used to update the Starlight configuration or add Astro integrations.
-
-This hook is called with the following options:
-
-#### `config`
-
-**type:** `StarlightUserConfig`
-
-A read-only copy of the user-supplied [Starlight configuration](/reference/configuration/).
-This configuration may have been updated by other plugins configured before the current one.
-
-#### `updateConfig`
+![Automation panel showing endpoint token](@/assets/third-party/endpoint.png)
 
-**type:** `(newConfig: StarlightUserConfig) => void`
+To obtain your API token:
 
-A callback function to update the user-supplied [Starlight configuration](/reference/configuration/).
-Provide the root-level configuration keys you want to override.
-To update nested configuration values, you must provide the entire nested object.
+1. Log in to your DealDroid dashboard
+2. Navigate to the **Automation Panel** from the left sidebar
+3. Find the automation **"When Receive message from Third Party"**
+4. Your Bearer token will be displayed here
+5. Copy and store it securely
 
-To extend an existing config option without overriding it, spread the existing value into your new value.
-In the following example, a new [`social`](/reference/configuration/#social) media account is added to the existing configuration by spreading `config.social` into the new `social` array:
-
-```ts {6-15}
-// plugin.ts
-export default {
-  name: "add-twitter-plugin",
-  hooks: {
-    "config:setup"({ config, updateConfig }) {
-      updateConfig({
-        social: [
-          ...config.social,
-          {
-            icon: "twitter",
-            label: "Twitter",
-            href: "https://twitter.com/astrodotbuild",
-          },
-        ],
-      });
-    },
-  },
-};
-```
+### Rotating Your Token
 
-#### `addIntegration`
+If you need to generate a new token (e.g., for security reasons):
 
-**type:** `(integration: AstroIntegration) => void`
+1. Open the **Automation Panel**
+2. Find **"When Receive message from Third Party"**
+3. Click **Regenerate** to create a new token
+4. Update your applications with the new token
 
-A callback function to add an [Astro integration](https://docs.astro.build/en/reference/integrations-reference/) required by the plugin.
+⚠️ **Warning:** Regenerating the token will immediately invalidate the old token. Make sure to update all applications using the API.
 
-In the following example, the plugin first checks if [Astro’s React integration](https://docs.astro.build/en/guides/integrations-guide/react/) is configured and, if it isn’t, uses `addIntegration()` to add it:
+---
 
-```ts {14} "addIntegration,"
-// plugin.ts
-import react from "@astrojs/react";
+## Available API Endpoints
 
-export default {
-  name: "plugin-using-react",
-  hooks: {
-    "config:setup"({ addIntegration, astroConfig }) {
-      const isReactLoaded = astroConfig.integrations.find(
-        ({ name }) => name === "@astrojs/react"
-      );
+DealDroid provides 7 API endpoints to interact with your bot. Below is an overview of the available endpoints:
 
-      // Only add the React integration if it's not already loaded.
-      if (!isReactLoaded) {
-        addIntegration(react());
-      }
-    },
-  },
-};
-```
+### 1. Send Text Message
 
-#### `addRouteMiddleware`
-
-**type:** `(config: { entrypoint: string; order?: 'pre' | 'post' | 'default' }) => void`
-
-A callback function to add a [route middleware handler](/guides/route-data/) to the site.
-
-The `entrypoint` property must be a module specifier for your plugin’s middleware file that exports an `onRequest` handler.
+Send a text message to your DealDroid bot on behalf of a customer.
 
-In the following example, a plugin published as `@example/starlight-plugin` adds a route middleware using an npm module specifier:
-
-```js {6-9}
-// plugin.ts
-export default {
-  name: "@example/starlight-plugin",
-  hooks: {
-    "config:setup"({ addRouteMiddleware }) {
-      addRouteMiddleware({
-        entrypoint: "@example/starlight-plugin/route-middleware",
-      });
-    },
-  },
-};
-```
+**Endpoint:** `POST /api/droids/:droidId/endpoint/send`
 
-##### Controlling execution order
+**Use case:** Send customer messages to your bot from your custom application or system.
 
-By default, plugin middleware runs in the order the plugins are added.
+### 2. Get Channels
 
-Use the optional `order` property if you need more control over when your middleware runs.
-Set `order: "pre"` to run before a user’s middleware.
-Set `order: "post"` to run after all other middleware.
+Retrieve the list of channels configured for your droid.
 
-If two plugins add middleware with the same `order` value, the plugin added first will run first.
-
-#### `astroConfig`
+**Endpoint:** `GET /api/droids/:droidId/endpoint/channels`
 
-**type:** `AstroConfig`
+**Use case:** Get information about all communication channels (LINE, Facebook, WhatsApp, etc.) connected to your bot.
 
-A read-only copy of the user-supplied [Astro configuration](https://docs.astro.build/en/reference/configuration-reference/).
+### 3. Get Messages
 
-#### `command`
-
-**type:** `'dev' | 'build' | 'preview'`
-
-The command used to run Starlight:
-
-- `dev` - Project is executed with `astro dev`
-- `build` - Project is executed with `astro build`
-- `preview` - Project is executed with `astro preview`
-
-#### `isRestart`
-
-**type:** `boolean`
-
-`false` when the dev server starts, `true` when a reload is triggered.
-Common reasons for a restart include a user editing their `astro.config.mjs` while the dev server is running.
-
-#### `logger`
-
-**type:** `AstroIntegrationLogger`
-
-An instance of the [Astro integration logger](https://docs.astro.build/en/reference/integrations-reference/#astrointegrationlogger) that you can use to write logs.
-All logged messages will be prefixed with the plugin name.
-
-```ts {6}
-// plugin.ts
-export default {
-  name: "long-process-plugin",
-  hooks: {
-    "config:setup"({ logger }) {
-      logger.info("Starting long process…");
-      // Some long process…
-    },
-  },
-};
-```
-
-The example above will log a message that includes the provided info message:
-
-```shell
-[long-process-plugin] Starting long process…
-```
-
-#### `useTranslations`
-
-**type:** `(lang: string) => I18nT`
-
-Call `useTranslations()` with a BCP-47 language tag to generate a utility function that provides access to UI strings for that language.
-`useTranslations()` returns an equivalent of the `Astro.locals.t()` API that is available in Astro components.
-To learn more about the available APIs, see the [“Using UI translations”](/guides/i18n/#using-ui-translations) guide.
-
-```ts {6}
-// plugin.ts
-export default {
-  name: "plugin-use-translations",
-  hooks: {
-    "config:setup"({ useTranslations, logger }) {
-      const t = useTranslations("zh-CN");
-      logger.info(t("builtWithStarlight.label"));
-    },
-  },
-};
-```
-
-The example above will log a message that includes a built-in UI string for the Simplified Chinese language:
-
-```shell
-[plugin-use-translations] 基于 Starlight 构建
-```
-
-#### `absolutePathToLang`
-
-**type:** `(path: string) => string`
-
-Call `absolutePathToLang()` with an absolute file path to get the language for that file.
-
-This can be particularly useful when adding [remark or rehype plugins](https://docs.astro.build/en/guides/markdown-content/#markdown-plugins) to process Markdown or MDX files.
-The [virtual file format](https://github.com/vfile/vfile) used by these plugins includes the [absolute path](https://github.com/vfile/vfile#filepath) of the file being processed, which can be used with `absolutePathToLang()` to determine the language of the file.
-The returned language can be used with the [`useTranslations()`](#usetranslations) helper to get UI strings for that language.
-
-For example, given the following Starlight configuration:
-
-```js
-starlight({
-  title: "My Docs",
-  defaultLocale: "en",
-  locales: {
-    // English docs in `src/content/docs/en/`
-    en: { label: "English" },
-    // French docs in `src/content/docs/fr/`
-    fr: { label: "Français", lang: "fr" },
-  },
-});
-```
-
-A plugin can determine the language of a file using its absolute path:
-
-```ts {6-8} /fr/
-// plugin.ts
-export default {
-  name: "plugin-use-translations",
-  hooks: {
-    "config:setup"({ absolutePathToLang, useTranslations, logger }) {
-      const lang = absolutePathToLang(
-        "/absolute/path/to/project/src/content/docs/fr/index.mdx"
-      );
-      const t = useTranslations(lang);
-      logger.info(t("aside.tip"));
-    },
-  },
-};
-```
-
-The example above will log a message that includes a built-in UI string for the French language:
-
-```shell
-[plugin-use-translations] Astuce
-```
+Retrieve the conversation messages for a specific customer.
+
+**Endpoint:** `GET /api/droids/:droidId/endpoint/messages/:customerId`
+
+**Use case:** Display past conversations in your custom chat interface or for analytics purposes.
+
+### 4. Get Customer Config
+
+Get detailed information and configuration for a specific customer.
+
+**Endpoint:** `GET /api/droids/:droidId/endpoint/customer/:customerId`
+
+**Use case:** Retrieve customer profile data including name, contact info, language preference, and bot enabled status.
+
+**Example response includes:** customerId, externalId, channelId, botEnabled, avatar, socialName, name, phone, address, city, zipcode, email, language, and more.
+
+### 5. Update Customer
+
+Enable or disable the bot for a specific customer.
+
+**Endpoint:** `POST /api/droids/:droidId/endpoint/customer/:customerId`
+
+**Body parameter:** `botEnabled` (boolean) - Set to `true` to enable, `false` to disable the bot for this customer.
+
+**Use case:** Toggle bot automation on/off for specific customers (e.g., when human takeover is needed).
+
+### 6. Get Droid Answer
+
+Let DealDroid generate AI-powered responses based on chat history and a new message.
+
+**Endpoint:** `POST /api/droids/:droidId/endpoint/get-droid-answer`
+
+**Body parameters:**
+
+- `humanMessage` (string) - The new message to get a response for
+- `chatHistory` (array) - Previous conversation messages for context
+
+**Use cases:**
+
+- **Response-only mode:** Use this when you want DealDroid to only generate responses without managing the conversation flow. Your application handles the chat management while DealDroid provides the intelligent replies.
+
+- **Admin assistance:** Generate suggested responses for human agents. Instead of letting DealDroid reply automatically, use this endpoint to prepare draft responses that admins can review, edit, and send manually.
+
+**Returns:** AI response, customer insights (intent, language, product keywords), shopping cart data, and address parsing.
+
+### 7. Get Alternative Text
+
+Generate AI-powered alternative text descriptions for images sent by users.
+
+**Endpoint:** `POST /api/droids/:droidId/endpoint/get-image-alt`
+
+**Body parameter:** `imageUrl` (string) - The URL of the image to analyze (supports .jpg, .jpeg, .png, .gif, .webp)
+
+**Use case:** Create image descriptions for user-uploaded images before sending them to the AI for response generation (Get Droid Answer). By default, if an image sent to the AI doesn't have alternative text, the AI will generate a description automatically. However, if you pre-generate the description using this endpoint and include it with the image, the AI will skip the description generation step, significantly speeding up the response time.
+
+**Returns:** AI-generated alt text, execution time, and tracking metadata.
+
+---
+
+## Detailed Documentation
+
+For complete specifications, request/response examples, and interactive testing of all endpoints, please refer to our Postman documentation:
+
+**📘 [View Full API Documentation on Postman](https://documenter.getpostman.com/view/36788758/2sB3BDJAbP)**
+
+The Postman documentation includes:
+
+- ✅ Detailed endpoint specifications
+- ✅ Required and optional parameters
+- ✅ Request body examples
+- ✅ Response format and examples
+- ✅ Error codes and messages
+- ✅ Interactive API testing environment
+
+---
+
+## FAQ
+
+### Q: I get 403 Forbidden. Why?
+
+**A:** You may be using the wrong `customerId` or `droidId`, or your token does not have access to this customer.
+
+### Q: How do I rotate my token?
+
+**A:** Open DealDroid **Automation Panel**. Search for **"When Receive message from Third Party"** and click **Regenerate** to change the token for the endpoint.
+
+### Q: Can I send images?
+
+**A:** Yes, you can send image URLs in the `humanMessage` field when using the Send Text Message endpoint. Make sure the URL is publicly accessible.
+
+### Q: Is there a rate limit?
+
+**A:** Rate limits vary by plan. Contact your DealDroid admin for specific limits on your account.
+
+### Q: Can I use this in a browser application?
+
+**A:** For security reasons, you should only call the API from your backend server. Never expose your Bearer token in client-side JavaScript.
+
+### Q: How do I know what customerId to use?
+
+**A:** You can get `customerId` from webhook payloads when receiving messages from customers.
+
+### Q: What happens if my token is compromised?
+
+**A:** Immediately regenerate your token in the Automation Panel. The old token will be invalidated instantly.
+
+---
+
+## Complete API Reference
+
+For the most up-to-date and comprehensive API documentation, including all endpoints, parameters, and examples, please refer to our Postman documentation:
+
+**📘 [View Full API Documentation on Postman](https://documenter.getpostman.com/view/36788758/2sB3BDJAbP)**
+
+The Postman documentation is our single source of truth and is continuously updated with the latest features and improvements.
+
+---
+
+## That's It! 🎉
+
+**You're ready to integrate DealDroid into your applications!**
+
+With the Message Endpoint API, you can build powerful custom integrations that extend your bot's reach beyond traditional messaging platforms. Whether you're building a mobile app, connecting to a CRM, or automating workflows — DealDroid's API makes it possible.
+
+Remember to keep your tokens secure and refer to the Postman documentation for complete API specifications.
+
+Need help? We're here to support you! 😊
