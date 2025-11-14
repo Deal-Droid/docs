@@ -61,6 +61,62 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 ;
 ```
 
+#### Asides (Callouts)
+
+**When to Use Asides:**
+
+Asides are special callout boxes that draw attention to important information. Use the `<Aside>` component from Starlight for critical messages only.
+
+**Import:**
+
+```mdx
+import { Aside } from "@astrojs/starlight/components";
+
+;
+```
+
+**Available Types:**
+
+- `<Aside>` or `<Aside type="note">` (blue) - General information, supplementary details
+- `<Aside type="tip">` (purple) - Helpful tips, best practices, pro tips
+- `<Aside type="caution">` (yellow) - Important warnings, things to be careful about
+- `<Aside type="danger">` (red) - Critical warnings, destructive actions, data loss warnings
+
+**Usage Guidelines:**
+
+⚠️ **MAXIMUM 2 ASIDES PER PAGE** - Overuse diminishes their impact
+
+**Use Asides for:**
+
+- Critical warnings (data loss, irreversible actions)
+- Important security or permission notes
+- Key tips that significantly improve user experience
+
+**Do NOT use Asides for:**
+
+- General notes (use regular blockquotes `>` instead)
+- Minor tips or suggestions
+- Additional context that's nice to know but not critical
+
+**Example:**
+
+```mdx
+<Aside type="danger">
+  Disconnecting will **permanently delete all conversation history**. This
+  action cannot be undone.
+</Aside>
+
+<Aside type="tip">You can select multiple Pages at once to save time.</Aside>
+```
+
+**For less critical callouts, use markdown blockquotes:**
+
+```markdown
+> **Note:** You can change this setting later.
+> **Tip:** Use descriptive names for easier management.
+> **Important:** Make sure you have admin permissions.
+```
+
 ## Section-Specific Patterns
 
 ### Getting Started (`/getting-started/`)

@@ -1,0 +1,246 @@
+---
+title: Set the Tone and Brand Voice
+description: Learn how to define your AI Agent's personality, tone, and style to match your brand voice perfectly.
+sidebar:
+  label: Set Brand Voice
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+Your AI Sales Agent shouldn't just sound smart — it should sound like _you_.
+
+DealDroid allows you to define the tone, style, and voice of your bot so that every message feels aligned with your brand. Whether you're friendly and casual, professional and concise, or playful and bold — your bot can reflect it.
+
+---
+
+## Why Brand Voice Matters
+
+- 🎯 **Builds trust and consistency** — Customers recognize and trust your brand voice
+- ✨ **Creates a memorable customer experience** — Stand out from generic chatbots
+- 🧠 **Helps your brand stand out** — Even in automated conversations, your personality shines through
+
+> "Consistency in brand messaging drives both trust and recall, which directly impact purchase decisions."
+>
+> **\*Source:** Nielsen, Global Trust in Advertising\*
+
+---
+
+## Step 1: Define Your Brand Personality
+
+![Settings page showing Bot Personality section](@/assets/getting_start/setting_bot_personality.png)
+
+Navigate to your Droid's settings and find the **Bot Personality (Voice & Tone)** section. This is where you can define how your bot should speak:
+
+- **Tone:** Friendly, Professional, Witty, Empathetic, etc.
+- **Style:** Short and punchy? Warm and detailed? Calm and factual?
+- **Dos and Don'ts:** Words or phrases to use or avoid
+
+> **Tip:** You can describe your tone using references like "sound like a friendly barista" or "talk like a helpful product advisor."
+
+---
+
+## Step 2: Set Examples and Notes
+
+Add examples of how your bot should greet users, explain products, or close a sale.
+
+```
+**Greeting example:**
+"Hey there! 👋 Looking for something special today?"
+
+**Objection handling:**
+"Totally understand! Here's another option that might work better."
+
+**Closing message:**
+"Awesome choice. Let's lock that in for you."
+```
+
+These examples help DealDroid adapt replies to sound consistent with your brand personality.
+
+---
+
+## Step 3: Train With Scripts and Documents
+
+If you've uploaded sales scripts, Q&A, or documents — your tone should be reflected in them too.
+
+- **Rewrite responses** to match your desired tone
+- **Ensure key phrases or sign-offs** follow your brand language
+- **Use the same vocabulary** your team would use in real sales conversations
+
+---
+
+## Step 4: Test in the Chat Sandbox
+
+Try your bot in the **preview chat sandbox** to see how it sounds:
+
+- Does it feel like a natural extension of your team?
+- Does it respond in the tone you expect?
+- Is the mood right for different stages of the conversation?
+
+If anything feels off, adjust the personality notes or rewrite scripts to fine-tune.
+
+---
+
+## Real-World Personality Examples
+
+Here are three different personality styles you can adapt for your business. Each example shows the complete personality definition you'd enter in the Bot Personality field.
+
+### Example 1: Friendly & Playful Shopping Companion
+
+```markdown
+# Character
+
+You are a fun-loving, energetic shopping companion who makes every conversation feel like chatting with a playful friend.
+
+# Tone & Style
+
+- **Warm & Friendly:** Use casual, conversational language
+- **Playful & Energetic:** Add emojis and light humor to create joy
+- **Genuine & Empathetic:** Show real interest in helping customers
+
+# Language Patterns
+
+- Use emojis naturally (but don't overdo it)
+- Ask friendly questions to keep conversation flowing
+- Use creative, imaginative descriptions
+
+# When You Don't Know the Answer
+
+Try to help by asking clarifying questions or suggesting related products. If truly unable to help, say: "Hmm, I'm not 100% sure about that! Let me connect you with our team who can give you the perfect answer. 😊"
+```
+
+---
+
+### Example 2: Professional & Knowledgeable Advisor
+
+```markdown
+# Character
+
+You are a professional, knowledgeable advisor who provides clear and reliable guidance in a polished, formal manner.
+
+# Tone & Style
+
+- **Professional & Formal:** Use proper grammar and formal language
+- **Clear & Structured:** Present information in organized way
+- **Respectful & Courteous:** Maintain politeness at all times
+
+# Language Patterns
+
+- Use complete sentences with proper punctuation
+- Address customers respectfully (e.g., "May I assist you...")
+- Avoid slang or casual expressions
+
+# When You Don't Know the Answer
+
+Acknowledge the limitation professionally: "I don't have that specific information at the moment. Would you like me to connect you with a specialist who can provide accurate details?"
+```
+
+---
+
+### Example 3: Direct & Efficient Speed Seller
+
+```markdown
+# Character
+
+A sincere, direct, and efficient sales assistant focused on speed and results. Get straight to the point with minimal words.
+
+# Tone & Style
+
+- **Concise & Action-Oriented:** Short sentences, no small talk
+- **Quick Decision-Driving:** Direct questions to move forward fast
+
+# Language Patterns
+
+- Ultra-short sentences
+- Direct questions (e.g., "Which option?", "Ready to checkout?")
+- One concept per message
+
+# When You Don't Know the Answer
+
+Be direct: "Don't have that info. Want to speak with our team?" or offer the closest alternative immediately without explanation.
+```
+
+---
+
+## The Most Important Part: Handling Uncertainty
+
+**This is what defines your bot's true personality.** When your bot doesn't know the answer or isn't confident, how should it respond?
+
+You have three main approaches:
+
+### 1. The Helpful Deflector
+
+Try to keep the conversation going by asking clarifying questions or suggesting alternatives.
+
+**Example:**
+
+```
+"Hmm, I'm not entirely sure about that specific detail, but I can help you with [related option]. Would that work?"
+```
+
+**Best for:** Friendly, conversational brands that want to maintain engagement
+
+---
+
+### 2. The Honest Professional
+
+Admit when you don't know and offer to escalate to a human.
+
+**Example:**
+
+```
+"I don't have that information available right now. Let me connect you with someone who can help you properly."
+```
+
+**Best for:** Professional, trustworthy brands that prioritize accuracy
+
+---
+
+### 3. The Fast Problem Solver
+
+Immediately offer the closest alternative or next best action without dwelling on the limitation.
+
+**Example:**
+
+```
+"Not sure on that one. Here's what I do have: [alternative]. Work for you?"
+```
+
+**Best for:** Fast-paced, action-oriented brands focused on quick decisions
+
+> **Important:** Include this in your Bot Personality definition under "When You Don't Know the Answer" so your bot knows exactly how to handle uncertainty consistently.
+
+---
+
+## Tips for Success
+
+**Be Specific:**
+
+- Instead of "be friendly," say "use exclamation marks, emojis, and casual language like talking to a friend"
+
+**Stay Consistent:**
+
+- Your tone should match across greetings, recommendations, objection handling, and closing
+
+**Test Regularly:**
+
+- As you add products and scripts, test how your bot sounds and adjust as needed
+
+**Match Your Team:**
+
+- If your sales team has a signature style, teach your bot to match it
+
+---
+
+When your bot speaks like your brand, customers feel like they're talking to _you_ — not just an AI.
+
+And that's what builds real connection.
+
+---
+
+## Need More Help?
+
+Check out our step-by-step visual guide:
+
+import { LinkPreview } from "astro-embed";
+
+<LinkPreview id="https://scribehow.com/shared/How_to_set_Bot_Personality_Voice_and_Tone__SuGiXrCKSXKGrE86YoY1qQ" />

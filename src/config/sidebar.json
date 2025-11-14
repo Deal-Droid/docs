@@ -1,28 +1,28 @@
 {
   "main": [
     {
-      "label": "Getting Started",
+      "label": "🚀 Getting Started",
       "translations": {
         "th": "เริ่มต้นใช้งาน"
       },
       "autogenerate": { "directory": "getting-started" }
     },
     {
-      "label": "Tuning",
+      "label": "🔧 Tuning",
       "translations": {
         "th": "ปรับแต่งดรอย"
       },
       "autogenerate": { "directory": "tuning" }
     },
     {
-      "label": "FAQ",
+      "label": "📬 FAQ",
       "translations": {
         "th": "คำถามที่พบบ่อย"
       },
       "autogenerate": { "directory": "faq" }
     },
     {
-      "label": "Third-Party",
+      "label": "🤝 Third-Party",
       "translations": {
         "th": "บุคคลที่สาม"
       },
