@@ -17,6 +17,12 @@ export default defineConfig({
         dark: "/src/assets/logo.svg",
         alt: "Dealdroid Logo",
       },
+      expressiveCode: {
+        defaultProps: {
+          // Enable word wrap for all code blocks
+          wrap: true,
+        },
+      },
       defaultLocale: "root",
       locales: {
         root: {
