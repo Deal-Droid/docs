@@ -17,6 +17,24 @@ export default defineConfig({
         dark: "/src/assets/logo.svg",
         alt: "Dealdroid Logo",
       },
+      titleDelimiter: "|",
+      head: [
+        {
+          tag: "script",
+          content: `
+            document.addEventListener('DOMContentLoaded', function() {
+              const logo = document.querySelector('.site-title');
+              if (logo) {
+                logo.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  window.location.href = 'https://dealdroid.net';
+                });
+                logo.style.cursor = 'pointer';
+              }
+            });
+          `,
+        },
+      ],
       expressiveCode: {
         defaultProps: {
           // Enable word wrap for all code blocks
