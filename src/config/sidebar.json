@@ -3,53 +3,16 @@
     {
       "label": "Getting Started",
       "translations": {
-        "fr": "Commencer"
+        "th": "เริ่มต้นใช้งาน"
       },
-      "items": [
-        {
-          "label": "[seti:vite] Introduction",
-          "translations": {
-            "th": "[seti:vite] บทนำ"
-          },
-          "autogenerate": { "directory": "getting-started/introduction" }
-        },
-        {
-          "label": "[setting] Connect",
-          "translations": {
-            "th": "[setting] การเชื่อมต่อ"
-          },
-          "autogenerate": { "directory": "getting-started/connection" }
-        },
-        {
-          "label": "[seti:plan] Monitoring",
-          "translations": {
-            "th": "[seti:plan] Monitoring"
-          },
-          "slug": "getting-started/monitoring"
-        }
-      ]
+      "autogenerate": { "directory": "getting-started" }
     },
     {
-      "label": "Droid tuning",
+      "label": "Tuning",
       "translations": {
         "th": "ปรับแต่งดรอย"
       },
-      "items": [
-        {
-          "label": "[document] General",
-          "translations": {
-            "th": "[document] ทั่วไป"
-          },
-          "autogenerate": { "directory": "tuning/general" }
-        },
-        {
-          "label": "[pencil] Advance",
-          "translations": {
-            "th": "[pencil] ขั้นสูง"
-          },
-          "autogenerate": { "directory": "tuning/advance" }
-        }
-      ]
+      "autogenerate": { "directory": "tuning" }
     },
     {
       "label": "FAQ",

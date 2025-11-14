@@ -2,7 +2,7 @@
 title: "Plugins Reference"
 description: An overview of the Starlight plugin API.
 sidebar:
-  label: "[seti:html] Plugins Reference"
+  label: "Plugins Reference"
 ---
 
 Starlight plugins can customize Starlight configuration, UI, and behavior, while also being easy to share and reuse.
@@ -15,23 +15,25 @@ Learn more about using a Starlight plugin in the [Configuration Reference](/refe
 A Starlight plugin has the following shape.
 See below for details of the different properties and hook parameters.
 
-
 ```ts
 interface StarlightPlugin {
   name: string;
   hooks: {
-    'i18n:setup'?: (options: {
+    "i18n:setup"?: (options: {
       injectTranslations: (
         translations: Record<string, Record<string, string>>
       ) => void;
     }) => void | Promise<void>;
-    'config:setup': (options: {
+    "config:setup": (options: {
       config: StarlightUserConfig;
       updateConfig: (newConfig: StarlightUserConfig) => void;
       addIntegration: (integration: AstroIntegration) => void;
-      addRouteMiddleware: (config: { entrypoint: string; order?: 'pre' | 'post' | 'default' }) => void;
+      addRouteMiddleware: (config: {
+        entrypoint: string;
+        order?: "pre" | "post" | "default";
+      }) => void;
       astroConfig: AstroConfig;
-      command: 'dev' | 'build' | 'preview';
+      command: "dev" | "build" | "preview";
       isRestart: boolean;
       logger: AstroIntegrationLogger;
       useTranslations: (lang: string) => I18nT;
@@ -40,7 +42,6 @@ interface StarlightPlugin {
   };
 }
 ```
-
 
 ## `name`
 
@@ -56,10 +57,10 @@ To get the type of a hook's arguments, use the `HookParameters` utility type and
 In the following example, the `options` parameter is typed to match the arguments passed to the `config:setup` hook:
 
 ```ts
-import type { HookParameters } from '@astrojs/starlight/types';
+import type { HookParameters } from "@astrojs/starlight/types";
 
-function configSetup(options: HookParameters['config:setup']) {
-  options.useTranslations('en');
+function configSetup(options: HookParameters["config:setup"]) {
+  options.useTranslations("en");
 }
 ```
 
@@ -82,15 +83,15 @@ In the following example, a plugin injects translations for a custom UI string n
 ```ts {6-13} /(injectTranslations)[^(]/
 // plugin.ts
 export default {
-  name: 'plugin-with-translations',
+  name: "plugin-with-translations",
   hooks: {
-    'i18n:setup'({ injectTranslations }) {
+    "i18n:setup"({ injectTranslations }) {
       injectTranslations({
         en: {
-          'myPlugin.doThing': 'Do the thing',
+          "myPlugin.doThing": "Do the thing",
         },
         fr: {
-          'myPlugin.doThing': 'Faire le truc',
+          "myPlugin.doThing": "Faire le truc",
         },
       });
     },
@@ -107,7 +108,7 @@ To type the `locals.t` object in the context of your plugin, declare the followi
 ```ts
 // env.d.ts
 declare namespace App {
-  type StarlightLocals = import('@astrojs/starlight').StarlightLocals;
+  type StarlightLocals = import("@astrojs/starlight").StarlightLocals;
   // Define the `locals.t` object in the context of a plugin.
   interface Locals extends StarlightLocals {}
 }
@@ -115,7 +116,7 @@ declare namespace App {
 declare namespace StarlightApp {
   // Define the additional plugin translations in the `I18n` interface.
   interface I18n {
-    'myPlugin.doThing': string;
+    "myPlugin.doThing": string;
   }
 }
 ```
@@ -126,8 +127,8 @@ For example, given the following source file:
 
 ```ts title="ui-strings.ts"
 export const UIStrings = {
-  en: { 'myPlugin.doThing': 'Do the thing' },
-  fr: { 'myPlugin.doThing': 'Faire le truc' },
+  en: { "myPlugin.doThing": "Do the thing" },
+  fr: { "myPlugin.doThing": "Faire le truc" },
 };
 ```
 
@@ -135,7 +136,7 @@ The following declaration would infer types from the English keys in the source 
 
 ```ts title="env.d.ts"
 declare namespace StarlightApp {
-  type UIStrings = typeof import('./ui-strings').UIStrings.en;
+  type UIStrings = typeof import("./ui-strings").UIStrings.en;
   interface I18n extends UIStrings {}
 }
 ```
@@ -168,16 +169,16 @@ In the following example, a new [`social`](/reference/configuration/#social) med
 ```ts {6-15}
 // plugin.ts
 export default {
-  name: 'add-twitter-plugin',
+  name: "add-twitter-plugin",
   hooks: {
-    'config:setup'({ config, updateConfig }) {
+    "config:setup"({ config, updateConfig }) {
       updateConfig({
         social: [
           ...config.social,
           {
-            icon: 'twitter',
-            label: 'Twitter',
-            href: 'https://twitter.com/astrodotbuild',
+            icon: "twitter",
+            label: "Twitter",
+            href: "https://twitter.com/astrodotbuild",
           },
         ],
       });
@@ -196,14 +197,14 @@ In the following example, the plugin first checks if [Astro’s React integratio
 
 ```ts {14} "addIntegration,"
 // plugin.ts
-import react from '@astrojs/react';
+import react from "@astrojs/react";
 
 export default {
-  name: 'plugin-using-react',
+  name: "plugin-using-react",
   hooks: {
-    'config:setup'({ addIntegration, astroConfig }) {
+    "config:setup"({ addIntegration, astroConfig }) {
       const isReactLoaded = astroConfig.integrations.find(
-        ({ name }) => name === '@astrojs/react'
+        ({ name }) => name === "@astrojs/react"
       );
 
       // Only add the React integration if it's not already loaded.
@@ -228,11 +229,11 @@ In the following example, a plugin published as `@example/starlight-plugin` adds
 ```js {6-9}
 // plugin.ts
 export default {
-  name: '@example/starlight-plugin',
+  name: "@example/starlight-plugin",
   hooks: {
-    'config:setup'({ addRouteMiddleware }) {
+    "config:setup"({ addRouteMiddleware }) {
       addRouteMiddleware({
-        entrypoint: '@example/starlight-plugin/route-middleware',
+        entrypoint: "@example/starlight-plugin/route-middleware",
       });
     },
   },
@@ -282,10 +283,10 @@ All logged messages will be prefixed with the plugin name.
 ```ts {6}
 // plugin.ts
 export default {
-  name: 'long-process-plugin',
+  name: "long-process-plugin",
   hooks: {
-    'config:setup'({ logger }) {
-      logger.info('Starting long process…');
+    "config:setup"({ logger }) {
+      logger.info("Starting long process…");
       // Some long process…
     },
   },
@@ -309,11 +310,11 @@ To learn more about the available APIs, see the [“Using UI translations”](/g
 ```ts {6}
 // plugin.ts
 export default {
-  name: 'plugin-use-translations',
+  name: "plugin-use-translations",
   hooks: {
-    'config:setup'({ useTranslations, logger }) {
-      const t = useTranslations('zh-CN');
-      logger.info(t('builtWithStarlight.label'));
+    "config:setup"({ useTranslations, logger }) {
+      const t = useTranslations("zh-CN");
+      logger.info(t("builtWithStarlight.label"));
     },
   },
 };
@@ -339,13 +340,13 @@ For example, given the following Starlight configuration:
 
 ```js
 starlight({
-  title: 'My Docs',
-  defaultLocale: 'en',
+  title: "My Docs",
+  defaultLocale: "en",
   locales: {
     // English docs in `src/content/docs/en/`
-    en: { label: 'English' },
+    en: { label: "English" },
     // French docs in `src/content/docs/fr/`
-    fr: { label: 'Français', lang: 'fr' },
+    fr: { label: "Français", lang: "fr" },
   },
 });
 ```
@@ -355,14 +356,14 @@ A plugin can determine the language of a file using its absolute path:
 ```ts {6-8} /fr/
 // plugin.ts
 export default {
-  name: 'plugin-use-translations',
+  name: "plugin-use-translations",
   hooks: {
-    'config:setup'({ absolutePathToLang, useTranslations, logger }) {
+    "config:setup"({ absolutePathToLang, useTranslations, logger }) {
       const lang = absolutePathToLang(
-        '/absolute/path/to/project/src/content/docs/fr/index.mdx'
+        "/absolute/path/to/project/src/content/docs/fr/index.mdx"
       );
       const t = useTranslations(lang);
-      logger.info(t('aside.tip'));
+      logger.info(t("aside.tip"));
     },
   },
 };
@@ -373,4 +374,3 @@ The example above will log a message that includes a built-in UI string for the 
 ```shell
 [plugin-use-translations] Astuce
 ```
-
