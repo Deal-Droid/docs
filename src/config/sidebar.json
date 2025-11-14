@@ -1,6 +1,13 @@
 {
   "main": [
     {
+      "label": "🏠 Home",
+      "translations": {
+        "th": "หน้าแรก"
+      },
+      "link": "/"
+    },
+    {
       "label": "🚀 Getting Started",
       "translations": {
         "th": "เริ่มต้นใช้งาน"

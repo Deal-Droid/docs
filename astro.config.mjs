@@ -10,15 +10,22 @@ export default defineConfig({
   integrations: [
     embeds(),
     starlight({
-      title: "Dealdroid",
-      favicon: "/src/assets/favicon.svg",
-      logo: {
-        light: "/src/assets/logo.svg",
-        dark: "/src/assets/logo.svg",
-        alt: "Dealdroid Logo",
+      title: "DealDroid",
+      description:
+        "Comprehensive documentation to help you get started and make the most of DealDroid.",
+      editLink: {
+        baseUrl: "https://github.com/Deal-Droid/docs/edit/main/",
       },
-      titleDelimiter: "|",
+      favicon: "/src/assets/favicon.svg",
       head: [
+        {
+          tag: "link",
+          attrs: {
+            rel: "icon",
+            href: "/src/assets/favicon.ico",
+            sizes: "32x32",
+          },
+        },
         {
           tag: "script",
           content: `
@@ -35,6 +42,12 @@ export default defineConfig({
           `,
         },
       ],
+      logo: {
+        light: "/src/assets/logo.svg",
+        dark: "/src/assets/logo.svg",
+        alt: "Dealdroid Logo",
+      },
+      titleDelimiter: "|",
       expressiveCode: {
         defaultProps: {
           // Enable word wrap for all code blocks
