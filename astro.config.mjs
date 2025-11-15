@@ -16,13 +16,13 @@ export default defineConfig({
       editLink: {
         baseUrl: "https://github.com/Deal-Droid/docs/edit/main/",
       },
-      favicon: "/src/assets/favicon.svg",
+      favicon: "/favicon.svg",
       head: [
         {
           tag: "link",
           attrs: {
             rel: "icon",
-            href: "/src/assets/favicon.ico",
+            href: "/favicon.ico",
             sizes: "32x32",
           },
         },
