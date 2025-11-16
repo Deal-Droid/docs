@@ -48,6 +48,10 @@ export default defineConfig({
         alt: "Dealdroid Logo",
       },
       titleDelimiter: "|",
+      customCss: [
+        // Path to custom CSS file
+        './src/styles/custom.css',
+      ],
       expressiveCode: {
         defaultProps: {
           // Enable word wrap for all code blocks
