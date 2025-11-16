@@ -1,4 +1,4 @@
-/* Background ของ scrollbar เป็นสีขาว */
+/* Scrollbar ที่รองรับ dark mode */
 .sidebar-pane::-webkit-scrollbar,
 .sidebar-content::-webkit-scrollbar,
 nav.sidebar::-webkit-scrollbar {
@@ -8,20 +8,20 @@ nav.sidebar::-webkit-scrollbar {
 .sidebar-pane::-webkit-scrollbar-track,
 .sidebar-content::-webkit-scrollbar-track,
 nav.sidebar::-webkit-scrollbar-track {
-  background: white;
+  background: var(--sl-color-bg-sidebar);
 }
 
 .sidebar-pane::-webkit-scrollbar-thumb,
 .sidebar-content::-webkit-scrollbar-thumb,
 nav.sidebar::-webkit-scrollbar-thumb {
-  background: #aaa;
+  background: var(--sl-color-gray-5);
   border-radius: 4px;
 }
 
 .sidebar-pane::-webkit-scrollbar-thumb:hover,
 .sidebar-content::-webkit-scrollbar-thumb:hover,
 nav.sidebar::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: var(--sl-color-gray-6);
 }
 
 /* สำหรับ Firefox */
@@ -29,5 +29,5 @@ nav.sidebar::-webkit-scrollbar-thumb:hover {
 .sidebar-content,
 nav.sidebar {
   scrollbar-width: thin;
-  scrollbar-color: #dddddd white;
+  scrollbar-color: var(--sl-color-gray-5) var(--sl-color-bg-sidebar);
 }
