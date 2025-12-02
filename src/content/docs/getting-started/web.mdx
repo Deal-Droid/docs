@@ -1,0 +1,287 @@
+---
+title: Connect Website Chathead
+description: Step-by-step guide to add a chat widget to your website so visitors can talk to your AI Agent directly from any page.
+sidebar:
+  order: 5
+  label: Connect Website
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+Want to let website visitors chat with your AI Agent without leaving your site?
+
+![Web Chathead icon and expanded chat window](@/assets/getting_start/web/icon_and_expand.png)
+
+The Website Chathead adds a floating chat icon to the bottom-right corner of your website. When visitors click it, a chat window opens instantly — allowing them to ask questions, browse products, and get help from your AI Agent in real-time. No app downloads, no redirects, just seamless conversation.
+
+Let's add your AI-powered chat widget in just a few minutes. 🚀
+
+---
+
+## Why Add a Website Chathead?
+
+- 💬 **Engage visitors instantly** — Customers can ask questions without leaving your site
+- ⚡ **24/7 availability** — Your AI Agent responds even when your team is offline
+- 🎯 **Reduce bounce rates** — Keep visitors engaged with immediate answers
+- 🛍️ **Boost conversions** — Guide customers through purchases right on your website
+- 🎨 **Match your brand** — Customize the chat widget color to fit your site design
+
+A website chat widget is one of the most effective ways to capture leads and convert visitors into customers. With DealDroid, you get the power of AI-driven conversations embedded directly into your website.
+
+---
+
+## Before You Begin
+
+Make sure you have:
+
+- ✅ **Access to your website's HTML** — You'll need to add code snippets to your site
+- ✅ A **DealDroid account** with at least one Droid (AI Agent) already created
+- ✅ Basic knowledge of where to find your website's `<head>` and `<body>` tags
+
+> **Note:** If you use a website builder like WordPress, Shopify, or Wix, you can usually add custom code through their settings panel.
+
+---
+
+## Step 1: Navigate to Channels and Create Website Embed
+
+![Channels page with New Website Embed button](@/assets/getting_start/web/new.png)
+
+1. Log in to your DealDroid dashboard
+2. Click on **Channels** in the left sidebar menu (highlighted with arrow)
+3. You'll see the "All Channels" page showing any channels you've already connected
+4. Click the **New Website Embed** button (highlighted with arrow)
+
+---
+
+## Step 2: Configure Your Chat Widget
+
+![Website Embed configuration form](@/assets/getting_start/web/form.png)
+
+After clicking **New Website Embed**, you'll see a configuration form with the following options:
+
+### Channel Name
+
+Give your channel a memorable name to identify it in your dashboard.
+
+- **Default:** "Web Channel"
+- **Example:** "Main Website Chat" or "Product Page Widget"
+
+> **Tip:** Use descriptive names if you plan to embed chat widgets on multiple websites or sections.
+
+### Primary Color
+
+Choose a color that matches your website's branding. The chat icon and header will use this color.
+
+- Click the color picker to select your preferred color
+- The color code updates automatically (e.g., `425067`)
+- **The embed scripts update in real-time** as you change the color
+
+### Enable Channel
+
+Toggle this option to control whether your chat widget is active:
+
+- **Enabled** — Your AI Agent will respond to visitor messages
+- **Disabled** — The chat icon still appears, but your AI Agent won't respond
+
+> **Tip:** Use the disable feature when you need to temporarily pause the chat without removing the code from your website.
+
+---
+
+## Step 3: Add the Code to Your Website
+
+DealDroid provides two code snippets that you need to add to your website. Each snippet serves a specific purpose and should be placed in a specific location.
+
+### CSS Stylesheet — Add Before `</head>`
+
+Copy the CSS link and paste it inside your `<head>` section, before the closing `</head>` tag:
+
+```html
+<link rel="stylesheet" href="http://happyhead.dealdroid.net/assets/index.css" />
+```
+
+**Why place CSS in the `<head>`?**
+
+- CSS in the `<head>` loads before the page content renders
+- This prevents a "flash of unstyled content" where the chat widget appears broken momentarily
+- Your chat icon will look correct from the moment it appears
+
+---
+
+### JavaScript — Add Before `</body>`
+
+Copy the JavaScript snippet and paste it just before the closing `</body>` tag:
+
+```html
+<script
+  type="module"
+  src="http://happyhead.dealdroid.net/assets/index.js?scriptId=script_sample&color=425067"
+></script>
+```
+
+**Why place JavaScript at the bottom?**
+
+- JavaScript at the bottom of `<body>` loads after all page content
+- This ensures your main content loads first, improving perceived page speed
+- The chat widget initializes after the page is ready, preventing any blocking
+
+---
+
+### Complete Example
+
+Here's how your HTML structure should look with both snippets in place:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Your Website</title>
+    <!-- Your existing stylesheets -->
+    <link rel="stylesheet" href="your-styles.css" />
+
+    <!-- DealDroid Chat Widget CSS -->
+    <link
+      rel="stylesheet"
+      href="http://happyhead.dealdroid.net/assets/index.css"
+    />
+  </head>
+  <body>
+    <!-- Your website content -->
+    <header>...</header>
+    <main>...</main>
+    <footer>...</footer>
+
+    <!-- Your existing scripts -->
+    <script src="your-scripts.js"></script>
+
+    <!-- DealDroid Chat Widget JavaScript -->
+    <script
+      type="module"
+      src="http://happyhead.dealdroid.net/assets/index.js?scriptId=script_sample&color=425067"
+    ></script>
+  </body>
+</html>
+```
+
+---
+
+## Why Two Separate Files?
+
+You might wonder why we don't combine everything into a single script. Keeping CSS and JavaScript separate gives you more control:
+
+- 🎨 **Style customization** — Override or extend the default styles with your own CSS
+- ⚡ **Loading control** — Decide exactly when each resource loads
+- 🔧 **Conditional loading** — Load the chat widget only on specific pages
+
+### Example Use Cases
+
+**Load chat only on product pages:**
+
+```html
+<script>
+  if (window.location.pathname.includes("/products")) {
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src =
+      "http://happyhead.dealdroid.net/assets/index.js?scriptId=script_sample&color=425067";
+    document.body.appendChild(script);
+  }
+</script>
+```
+
+**Delay loading until user scrolls:**
+
+```html
+<script>
+  let chatLoaded = false;
+  window.addEventListener("scroll", function () {
+    if (!chatLoaded && window.scrollY > 300) {
+      chatLoaded = true;
+      const script = document.createElement("script");
+      script.type = "module";
+      script.src =
+        "http://happyhead.dealdroid.net/assets/index.js?scriptId=script_sample&color=425067";
+      document.body.appendChild(script);
+    }
+  });
+</script>
+```
+
+---
+
+## You're All Set! 🎉
+
+**Your AI Agent is now live on your website!**
+
+Once you've added both code snippets and saved your changes, the chat icon will appear in the bottom-right corner of your website. Visitors can click it to start chatting with your AI Agent immediately.
+
+Your AI will handle:
+
+- 💬 **Visitor questions** — Answer inquiries about products, services, and policies
+- 🛍️ **Product recommendations** — Suggest items based on visitor needs
+- 🎯 **Sales conversations** — Guide visitors toward purchases
+- 📞 **Support requests** — Handle common support questions automatically
+
+---
+
+## Testing Your Chat Widget
+
+Want to make sure everything works? Here's how to test:
+
+1. Open your website in a browser
+2. Look for the **chat icon** in the bottom-right corner
+3. Click the icon to open the chat window
+4. Send a test message like "Hello" or "What do you sell?"
+5. Your AI Agent should respond within seconds
+
+If you don't see the chat icon:
+
+- ✅ Check that both code snippets are added correctly
+- ✅ Verify the snippets are in the correct locations (`<head>` and `<body>`)
+- ✅ Clear your browser cache and refresh the page
+- ✅ Check your browser's developer console for any errors
+
+If the icon appears but you don't get responses:
+
+- ✅ Make sure **Enable Channel** is turned on in DealDroid
+- ✅ Verify that a Droid is assigned to this channel
+- ✅ Check that your Droid has Knowledge Base and Products configured
+
+---
+
+## Regenerating Your Script
+
+Need to generate a new script ID? Click the **Regenerate** button in the channel settings.
+
+<Aside type="danger">
+  Regenerating your script will **invalidate your current embed code**. Your
+  existing chat widget will stop working until you update the code on your
+  website with the new script.
+</Aside>
+
+After regenerating:
+
+1. Copy the new CSS and JavaScript snippets
+2. Replace the old code on your website with the new snippets
+3. Save and deploy your website changes
+
+> **Tip:** Only regenerate if you suspect your script ID has been compromised or you need a fresh start.
+
+---
+
+## What's Next?
+
+Now that your website chat is connected, here's what you can do:
+
+1. **Test thoroughly** — Try different questions to see how your AI responds
+2. **Customize the color** — Match the chat widget to your brand colors
+3. **Add more knowledge** — Train your AI with FAQs and business information
+4. **Upload products** — Add your catalog so your AI can recommend products
+5. **Connect more channels** — Add LINE, Facebook Messenger, or WhatsApp
+
+---
+
+## Need Help?
+
+If you encounter any issues during setup or have questions about the website integration, our support team is here to help. Reach out anytime!
+
+Your AI sales agent is ready to engage with website visitors. Let's start converting those conversations into sales! 😊
