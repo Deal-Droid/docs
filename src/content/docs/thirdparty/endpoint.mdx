@@ -5,6 +5,8 @@ sidebar:
   order: 1
 ---
 
+import { Card, CardGrid, Aside } from "@astrojs/starlight/components";
+
 Need to send messages to your DealDroid bot from your own application? The Message Endpoint API lets you programmatically send messages on behalf of customers, allowing you to integrate DealDroid into your custom workflows, mobile apps, or third-party systems.
 
 ---
@@ -74,17 +76,9 @@ If you need to generate a new token (e.g., for security reasons):
 
 ## Available API Endpoints
 
-DealDroid provides 7 API endpoints to interact with your bot. Below is an overview of the available endpoints:
+DealDroid provides 9 API endpoints to interact with your bot. Below is an overview of the available endpoints:
 
-### 1. Send Text Message
-
-Send a text message to your DealDroid bot on behalf of a customer.
-
-**Endpoint:** `POST /api/droids/:droidId/endpoint/send`
-
-**Use case:** Send customer messages to your bot from your custom application or system.
-
-### 2. Get Channels
+### 1. Get Channels
 
 Retrieve the list of channels configured for your droid.
 
@@ -92,7 +86,9 @@ Retrieve the list of channels configured for your droid.
 
 **Use case:** Get information about all communication channels (LINE, Facebook, WhatsApp, etc.) connected to your bot.
 
-### 3. Get Messages
+---
+
+### 2. Get Messages
 
 Retrieve the conversation messages for a specific customer.
 
@@ -100,7 +96,9 @@ Retrieve the conversation messages for a specific customer.
 
 **Use case:** Display past conversations in your custom chat interface or for analytics purposes.
 
-### 4. Get Customer Config
+---
+
+### 3. Get Customer Config
 
 Get detailed information and configuration for a specific customer.
 
@@ -110,7 +108,117 @@ Get detailed information and configuration for a specific customer.
 
 **Example response includes:** customerId, externalId, channelId, botEnabled, avatar, socialName, name, phone, address, city, zipcode, email, language, and more.
 
-### 5. Update Customer
+---
+
+### 4. Get Customer Conversations
+
+Retrieve all conversation messages for a specific customer.
+
+**Endpoint:** `GET /api/droids/:droidId/endpoint/customer/:customerId/conversations`
+
+**Use cases:**
+
+- 📊 **Display chat history** — Show conversation history in your own system or dashboard
+- 📈 **Analytics & reporting** — Analyze customer interactions for sentiment or trends
+
+**Example response:**
+
+```json
+{
+  "conversations": [
+    {
+      "id": 2967,
+      "type": "ai",
+      "contentType": "text",
+      "content": "คุณสนใจสูตรไหนเป็นพิเศษไหมคะ? 🐶💕",
+      "alt": "",
+      "note": null,
+      "createdAt": "2025-11-25T09:03:29.138+07:00",
+      "updatedAt": "2025-11-25T09:03:29.138+07:00"
+    },
+    {
+      "id": 2966,
+      "type": "human",
+      "contentType": "image",
+      "content": "https://example.com/uploads/product_image.jpg",
+      "alt": "DJI Flip all-in-one vlog camera drone",
+      "note": null,
+      "createdAt": "2025-11-25T09:03:29.134+07:00",
+      "updatedAt": "2025-11-25T09:03:29.134+07:00"
+    }
+  ],
+  "total": 26
+}
+```
+
+---
+
+### 5. Get Customer Ask
+
+Ask AI-powered questions about a customer based on their conversation history.
+
+**Endpoint:** `POST /api/droids/:droidId/endpoint/customer/:customerId/ask`
+
+**Body parameter:**
+
+- `prompt` (string) - Your question about the customer (max 500 characters)
+
+**Use cases:**
+
+- 🎭 **Sentiment analysis** — Understand how the customer is feeling
+- 📝 **Conversation summary** — Get a quick overview of the discussion
+- 🛒 **Product interest** — Find out what products the customer is interested in
+- ❓ **Customer questions** — Extract key questions or concerns from the conversation
+
+**Example prompts:**
+
+```
+Analyze user sentiment. Respond ONLY with valid JSON: { "status": "positive" | "negative" | "neutral", "reason": "brief explanation" }
+```
+
+```
+What products is this customer interested in? List them in bullet points.
+```
+
+```
+Summarize the customer's main concerns or questions.
+```
+
+```
+What should be the next step to close this sale?
+```
+
+**Example response:**
+
+```json
+{
+  "answer": "{\"status\": \"positive\", \"reason\": \"Customer expressed happiness and interest in products, AI provided helpful and friendly responses.\"}"
+}
+```
+
+> **Note:** The `answer` field contains the AI response. The format depends on how you structure your prompt — if you ask for JSON, you'll get JSON. If you ask for plain text, you'll get plain text.
+
+**Limits:**
+
+| Limit | Value |
+|-------|-------|
+| Max prompt length | 500 characters |
+| Max chat history context | 50 messages |
+| Max output tokens | 3,000 tokens |
+
+---
+
+### 6. Send Text Message
+
+Send a text message to your DealDroid bot on behalf of a customer.
+
+**Endpoint:** `POST /api/droids/:droidId/endpoint/send`
+
+**Use case:** Send customer messages to your bot from your custom application or system.
+
+---
+
+### 7. Update Customer
 
 Enable or disable the bot for a specific customer.
 
@@ -120,7 +228,9 @@ Enable or disable the bot for a specific customer.
 
 **Use case:** Toggle bot automation on/off for specific customers (e.g., when human takeover is needed).
 
-### 6. Get Droid Answer
+---
+
+### 8. Get Droid Answer
 
 Let DealDroid generate AI-powered responses based on chat history and a new message.
 
@@ -139,7 +249,9 @@ Let DealDroid generate AI-powered responses based on chat history and a new mess
 
 **Returns:** AI response, customer insights (intent, language, product keywords), shopping cart data, and address parsing.
 
-### 7. Get Alternative Text
+---
+
+### 9. Get Alternative Text
 
 Generate AI-powered alternative text descriptions for images sent by users.
 
@@ -153,20 +265,35 @@ Generate AI-powered alternative text descriptions for images sent by users.
 
 ---
 
-## Detailed Documentation
+## Complete API Documentation
 
-For complete specifications, request/response examples, and interactive testing of all endpoints, please refer to our Postman documentation:
+<Aside type="tip">
+**Looking for detailed specifications?** All request/response examples, parameters, and interactive testing are available in our Postman documentation — your single source of truth for the API.
+</Aside>
 
-**📘 [View Full API Documentation on Postman](https://documenter.getpostman.com/view/36788758/2sB3BDJAbP)**
+<CardGrid>
+  <Card title="📄 Full API Reference" icon="document">
+    Detailed specifications for all 9 endpoints with complete request/response examples.
+  </Card>
+  <Card title="🧪 Interactive Testing" icon="rocket">
+    Test endpoints directly in Postman with your own API token.
+  </Card>
+  <Card title="📋 Request Examples" icon="list-format">
+    Copy-paste ready curl commands and code snippets.
+  </Card>
+  <Card title="⚠️ Error Handling" icon="warning">
+    Complete error codes, messages, and troubleshooting guide.
+  </Card>
+</CardGrid>
 
-The Postman documentation includes:
+<div class="flex flex-col gap-4" style="text-align: left; margin: 2rem 0;">
+  <a href="https://documenter.getpostman.com/view/36788758/2sB3BDJAbP" target="_blank">
+    <img src="/src/assets/third-party/postman-logo.png" alt="Postman Logo" width="200" />
+  </a>
+  
+  **[View Full API Documentation on Postman](https://documenter.getpostman.com/view/36788758/2sB3BDJAbP)**
+</div> 
 
-- ✅ Detailed endpoint specifications
-- ✅ Required and optional parameters
-- ✅ Request body examples
-- ✅ Response format and examples
-- ✅ Error codes and messages
-- ✅ Interactive API testing environment
 
 ---
 
@@ -199,16 +326,6 @@ The Postman documentation includes:
 ### Q: What happens if my token is compromised?
 
 **A:** Immediately regenerate your token in the Automation Panel. The old token will be invalidated instantly.
-
----
-
-## Complete API Reference
-
-For the most up-to-date and comprehensive API documentation, including all endpoints, parameters, and examples, please refer to our Postman documentation:
-
-**📘 [View Full API Documentation on Postman](https://documenter.getpostman.com/view/36788758/2sB3BDJAbP)**
-
-The Postman documentation is our single source of truth and is continuously updated with the latest features and improvements.
 
 ---
 
