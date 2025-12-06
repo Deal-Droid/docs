@@ -268,12 +268,268 @@ After regenerating:
 
 ---
 
+## Advanced Customization 🎨
+
+Want to customize the chat widget's title, welcome message, or suggested questions? You can override the default settings by adding a `window.ChatHeadConfig` object before the DealDroid script.
+
+![Chat widget showing customized title, welcome message, and suggested questions](@/assets/getting_start/web/config.png)
+
+Here's how your code would look with custom configuration:
+
+```html
+<body>
+  <!-- Your website content -->
+  <header>...</header>
+  <main>...</main>
+  <footer>...</footer>
+
+  <!-- DealDroid Chat Configuration -->
+  <script>
+    // @ts-ignore - Prevents TypeScript errors in IDEs
+    window.ChatHeadConfig = {
+      scriptId: "script_xxxxxx",
+      title: "Ask DealDroid",
+      openTitle: "How can we help you?",
+      theme: {
+        primary: "#4f46e5",
+      },
+      openQuestions: [
+        "What is DealDroid?",
+        "How to integrate DealDroid?",
+        "Pricing details",
+      ],
+    };
+  </script>
+
+  <!-- DealDroid Chat Widget JavaScript -->
+  <script
+    type="module"
+    src="https://happyhead.dealdroid.net/assets/index.js?scriptId=script_xxxxxxx"
+  ></script>
+</body>
+```
+
+> **Important:** The `ChatHeadConfig` script must be placed **before** the DealDroid widget script to work correctly.
+
+---
+
+### ChatHeadConfig Fields Explained
+
+Here's what each field does and how to use it effectively:
+
+#### scriptId
+
+**Required.** Your unique script identifier from the DealDroid dashboard.
+
+- Must match the `scriptId` in your JavaScript URL
+- Get this from your channel settings in DealDroid
+
+**Example:** `"script_xaugxgesi6a"`
+
+---
+
+#### title
+
+The text displayed in the chat widget header.
+
+**Tips:**
+
+- Keep it short and friendly (2-4 words)
+- Make it clear it's a chat or help feature
+- Use your brand name or product name
+
+**Examples:**
+
+- `"Ask DealDroid"`
+- `"Chat with Us"`
+- `"Pet Store Helper"`
+- `"Coffee Shop Assistant"`
+
+---
+
+#### openTitle
+
+The welcome message shown above the suggested questions when the chat opens.
+
+**Tips:**
+
+- Make it inviting and action-oriented
+- Use a question format to engage visitors
+- Keep it conversational and friendly
+
+**Examples:**
+
+- `"How can we help you?"`
+- `"What are you looking for today?"`
+- `"Need help finding something?"`
+- `"Ready to order?"`
+
+---
+
+#### openQuestions
+
+An array of suggested questions that appear as clickable buttons when the chat opens. Visitors can tap these instead of typing.
+
+**Tips:**
+
+- Choose 3-5 of your most common questions
+- Make them specific and actionable
+- Match the questions to your business goals
+- Use natural, conversational language
+
+**Examples:**
+
+```javascript
+// E-commerce store
+openQuestions: [
+  "What's on sale today?",
+  "Do you offer free shipping?",
+  "How do I track my order?",
+  "What's your return policy?",
+];
+
+// Restaurant
+openQuestions: [
+  "What's today's special?",
+  "Do you have vegetarian options?",
+  "Can I make a reservation?",
+  "What are your hours?",
+];
+
+// SaaS product
+openQuestions: [
+  "How does pricing work?",
+  "Can I try it for free?",
+  "What integrations do you support?",
+  "How do I get started?",
+];
+```
+
+---
+
+#### theme.primary
+
+The primary color for your chat widget (chat icon, header, buttons).
+
+**Tips:**
+
+- Use hex color codes (e.g., `"#4f46e5"`)
+- Match your brand colors for consistency
+- The widget automatically adjusts text color for readability
+
+**Example:** `"#4f46e5"` (indigo blue)
+
+> **Note:** Custom theme colors only work in light mode. In dark mode, the chat widget uses a neutral gray color scheme to match the system appearance.
+
+---
+
+#### theme.onPrimary (Optional)
+
+The chat widget includes automatic accessibility features! If you choose a light primary color, the text automatically becomes dark for readability. If you choose a dark primary color, the text becomes light. This ensures your chat is readable for all visitors.
+
+However, if you want to specify the text color yourself, you can use `theme.onPrimary` to define your preferred text color.
+
+**Example:**
+
+```javascript
+theme: {
+  primary: "#4f46e5",
+  onPrimary: "#ffffff" // Force white text
+}
+```
+
+---
+
+### Real-World Example: Pet Store
+
+Here's a complete example showing how a pet store might customize their chat widget:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Paws & Claws Pet Store</title>
+    <link
+      rel="stylesheet"
+      href="http://happyhead.dealdroid.net/assets/index.css"
+    />
+  </head>
+  <body>
+    <!-- Your pet store website content -->
+    <header>
+      <h1>🐾 Paws & Claws Pet Store</h1>
+    </header>
+    <main>
+      <!-- Product listings, etc. -->
+    </main>
+
+    <!-- Pet Store Chat Configuration -->
+    <script>
+      // @ts-ignore - Prevents TypeScript errors in IDEs
+      window.ChatHeadConfig = {
+        scriptId: "script_pawsandclaws123",
+        title: "Pet Store Helper",
+        openTitle: "What can we help you find today?",
+        theme: {
+          primary: "#10b981", // Green to match pet/nature theme
+        },
+        openQuestions: [
+          "What's best for a new puppy?",
+          "Do you have organic cat food?",
+          "Show me dog toys",
+          "What are your store hours?",
+        ],
+      };
+    </script>
+
+    <!-- DealDroid Chat Widget -->
+    <script
+      type="module"
+      src="http://happyhead.dealdroid.net/assets/index.js?scriptId=script_pawsandclaws123"
+    ></script>
+  </body>
+</html>
+```
+
+With this setup:
+
+- The chat header shows "Pet Store Helper" instead of a generic title
+- Visitors see a friendly "What can we help you find today?" message
+- The suggested questions are tailored to pet owners' common needs
+- The green color (#10b981) matches the natural, pet-friendly brand theme
+
+---
+
+### Configuration Priority
+
+**Important to know:** Settings in `ChatHeadConfig` will **override** the URL parameters.
+
+For example:
+
+```html
+<!-- ChatHeadConfig overrides parameter to purple (#4f46e5) -->
+<script>
+  window.ChatHeadConfig = {
+    theme: {
+      primary: "#4f46e5", // This wins!
+    },
+  };
+</script>
+
+<!-- URL parameter sets color to blue (#425067) -->
+<script src="...index.js?scriptId=script_sample&color=425067"></script>
+```
+
+> **Tip:** Use `ChatHeadConfig` for full customization, or stick with URL parameters for simple color changes.
+
+---
+
 ## What's Next?
 
 Now that your website chat is connected, here's what you can do:
 
 1. **Test thoroughly** — Try different questions to see how your AI responds
-2. **Customize the color** — Match the chat widget to your brand colors
+2. **Customize the experience** — Use ChatHeadConfig to match your brand
 3. **Add more knowledge** — Train your AI with FAQs and business information
 4. **Upload products** — Add your catalog so your AI can recommend products
 5. **Connect more channels** — Add LINE, Facebook Messenger, or WhatsApp
