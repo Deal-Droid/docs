@@ -8,6 +8,13 @@
       "link": "/"
     },
     {
+      "label": "🎁 Release Notes",
+      "translations": {
+        "th": "บันทึกการอัพเดท"
+      },
+      "link": "/release-notes/"
+    },
+    {
       "label": "🚀 Getting Started",
       "translations": {
         "th": "เริ่มต้นใช้งาน"
