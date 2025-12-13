@@ -3,42 +3,42 @@
     {
       "label": "🏠 Home",
       "translations": {
-        "th": "หน้าแรก"
+        "th": "🏠 หน้าแรก"
       },
       "link": "/"
     },
     {
       "label": "🎁 Release Notes",
       "translations": {
-        "th": "บันทึกการอัพเดท"
+        "th": "🎁 บันทึกการอัพเดท"
       },
       "link": "/release-notes/"
     },
     {
       "label": "🚀 Getting Started",
       "translations": {
-        "th": "เริ่มต้นใช้งาน"
+        "th": "🚀 เริ่มต้นใช้งาน"
       },
       "autogenerate": { "directory": "getting-started" }
     },
     {
       "label": "🔧 Tuning",
       "translations": {
-        "th": "ปรับแต่งดรอย"
+        "th": "🔧 ปรับแต่งดรอย"
       },
       "autogenerate": { "directory": "tuning" }
     },
     {
       "label": "📬 FAQ",
       "translations": {
-        "th": "คำถามที่พบบ่อย"
+        "th": "📬 คำถามที่พบบ่อย"
       },
       "autogenerate": { "directory": "faq" }
     },
     {
       "label": "🤝 Third-Party",
       "translations": {
-        "th": "บุคคลที่สาม"
+        "th": "🤝 บุคคลที่สาม"
       },
       "autogenerate": { "directory": "thirdparty" }
     }
