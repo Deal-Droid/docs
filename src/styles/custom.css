@@ -31,3 +31,23 @@ nav.sidebar {
   scrollbar-width: thin;
   scrollbar-color: var(--sl-color-gray-5) var(--sl-color-bg-sidebar);
 }
+
+/* Horizontal Rule แบบ Medium style - จุด จุด จุด */
+.sl-markdown-content hr {
+  border: none;
+  text-align: center;
+  margin: 3rem 0;
+  position: relative;
+  height: auto;
+  background: none;
+}
+
+.sl-markdown-content hr::before {
+  content: "• • •";
+  display: block;
+  letter-spacing: 0.5em;
+  font-size: 1.2rem;
+  color: var(--sl-color-text);
+  opacity: 0.4;
+  padding-left: 0.5em;
+}
