@@ -40,6 +40,7 @@ When you create a new Droid, the system automatically sets up 5 default statuses
 **Behavior:** Greeting, asking general questions, just browsing
 
 **What to do:**
+
 - Reply quickly
 - Provide complete information
 - Ask questions back to understand their needs
@@ -53,6 +54,7 @@ When you create a new Droid, the system automatically sets up 5 default statuses
 **Behavior:** Read but don't reply, slow responses, says "let me look first"
 
 **What to do:**
+
 - Don't be pushy, wait for the right moment
 - Keep contact information
 - Use follow-up or broadcast promotions to re-engage later
@@ -66,6 +68,7 @@ When you create a new Droid, the system automatically sets up 5 default statuses
 **Behavior:** Asking detailed specs, requesting payment info, trying to negotiate price, asking about shipping
 
 **What to do:** ⚡ **Most urgent!**
+
 - Summarize order clearly
 - Push to close the sale
 - Send payment information immediately
@@ -80,6 +83,7 @@ When you create a new Droid, the system automatically sets up 5 default statuses
 **Behavior:** Sent payment slip, provided shipping address, waiting for delivery
 
 **What to do:**
+
 - Thank the customer
 - Provide tracking number and follow delivery
 - Invite to join membership or community
@@ -94,6 +98,7 @@ When you create a new Droid, the system automatically sets up 5 default statuses
 **Behavior:** Declined, looking for products not available, no response for a long time
 
 **What to do:**
+
 - Thank them for their interest
 - Suggest similar products (if available)
 - End conversation politely
@@ -155,6 +160,7 @@ When you click **Add Status** or **Edit**, the system will show a form with thes
 **Used as a shorthand symbol** to help remember and distinguish when filtering statuses
 
 **Examples:**
+
 - 👋 for Greeting
 - ❄️ for Cold Lead
 - 🔥 for Hot Lead
@@ -162,6 +168,7 @@ When you click **Add Status** or **Edit**, the system will show a form with thes
 - 😴️ for Passed
 
 **Tips:**
+
 - Choose emojis with clear meanings
 - Use different colors and shapes for easy recognition
 
@@ -172,6 +179,7 @@ When you click **Add Status** or **Edit**, the system will show a form with thes
 **The name of the status** that will be displayed in the system
 
 **Examples:**
+
 - "Greeting"
 - "Cold Lead"
 - "Hot Lead - Ready to Buy"
@@ -179,6 +187,7 @@ When you click **Add Status** or **Edit**, the system will show a form with thes
 - "Passed - Not Interested"
 
 **Tips:**
+
 - Use clear, short, concise names
 - Can use any language
 - Add short description at the end if needed
@@ -190,12 +199,14 @@ When you click **Add Status** or **Edit**, the system will show a form with thes
 **The color used to display the status** on Chat page and reports
 
 **How to use:**
+
 - Choose different colors for each status
 - Use red or orange for urgent statuses (Hot Lead)
 - Use green for closed deals (Closed Won)
 - Use gray or light blue for non-urgent statuses (Cold Lead, Passed)
 
 **Tips:**
+
 - Colors help you notice faster, especially with many customers
 - Use colors that match the meaning (e.g., 🔥 Hot = red, ❄️ Cold = blue)
 
@@ -223,6 +234,7 @@ Suppose a customer is in "Hot Lead" status and types "hello":
 - This intent sets status to "Greeting"
 - But "Greeting" has lower value than "Hot Lead"
 - If set to **"Don't allow downgrade"**:
+
   - ❌ System will **not change** customer's status from "Hot Lead" to "Greeting"
   - ✅ Customer remains in "Hot Lead" as before
 
@@ -324,14 +336,17 @@ When a customer sends a message matching this intent:
 ### Usage examples
 
 **Intent: "Request payment info"**
+
 - Status to Assign: **Hot Lead**
 - Result: When customer asks for payment info, system changes status to Hot Lead immediately
 
 **Intent: "Not interested"**
+
 - Status to Assign: **Passed**
 - Result: When customer says not interested, system moves to Passed so admin knows not to follow up
 
 **Intent: "Ask price"**
+
 - Status to Assign: **Cold Lead**
 - Result: When customer asks price but hasn't decided to buy, system assigns Cold Lead
 
@@ -343,38 +358,38 @@ When a customer sends a message matching this intent:
 
 ### General Online Store
 
-| Status | Emoji | When to use |
-|--------|-------|-------------|
-| Greeting | 👋 | First greeting |
-| Cold Lead | ❄️ | Asking price, browsing, undecided |
-| Hot Lead | 🔥 | Request payment info, negotiate, ready to buy |
-| Closed Won | ✅ | Sent payment slip |
-| Passed | ⏭️ | Not interested, looking for other products |
+| Status     | Emoji | When to use                                   |
+| ---------- | ----- | --------------------------------------------- |
+| Greeting   | 👋    | First greeting                                |
+| Cold Lead  | ❄️    | Asking price, browsing, undecided             |
+| Hot Lead   | 🔥    | Request payment info, negotiate, ready to buy |
+| Closed Won | ✅    | Sent payment slip                             |
+| Passed     | ⏭️    | Not interested, looking for other products    |
 
 ---
 
 ### Service Business (e.g., Hotel, Clinic)
 
-| Status | Emoji | When to use |
-|--------|-------|-------------|
-| Inquiry | 💬 | Asking for information |
-| Quotation Sent | 📋 | Sent quotation |
-| Ready to Book | 🔥 | Ready to book |
-| Confirmed | ✅ | Booked, paid |
-| Cancelled | ❌ | Cancelled |
+| Status         | Emoji | When to use            |
+| -------------- | ----- | ---------------------- |
+| Inquiry        | 💬    | Asking for information |
+| Quotation Sent | 📋    | Sent quotation         |
+| Ready to Book  | 🔥    | Ready to book          |
+| Confirmed      | ✅    | Booked, paid           |
+| Cancelled      | ❌    | Cancelled              |
 
 ---
 
 ### B2B Business
 
-| Status | Emoji | When to use |
-|--------|-------|-------------|
-| First Contact | 👋 | First contact |
-| Qualified Lead | 📊 | Qualified, has potential |
-| Proposal Sent | 📄 | Sent proposal |
-| Negotiation | 💰 | Negotiating |
-| Deal Closed | 🎉 | Deal closed |
-| Lost | ⏭️ | Lost opportunity |
+| Status         | Emoji | When to use              |
+| -------------- | ----- | ------------------------ |
+| First Contact  | 👋    | First contact            |
+| Qualified Lead | 📊    | Qualified, has potential |
+| Proposal Sent  | 📄    | Sent proposal            |
+| Negotiation    | 💰    | Negotiating              |
+| Deal Closed    | 🎉    | Deal closed              |
+| Lost           | ⏭️    | Lost opportunity         |
 
 ---
 
@@ -387,6 +402,7 @@ Start each day by filtering for **Hot Lead** and contact these customers first t
 ### 2. Set up intents that indicate buying readiness
 
 Assign status automatically for these intents:
+
 - "Request payment info" → Hot Lead
 - "Request shipping address" → Hot Lead
 - "Ready to pay" → Hot Lead
@@ -395,6 +411,7 @@ Assign status automatically for these intents:
 ### 3. Use Cold Lead for follow-up
 
 For Cold Lead customers:
+
 - Save their information
 - Wait 1-2 days
 - Send promotions or special offers to re-engage
@@ -403,6 +420,7 @@ For Cold Lead customers:
 ### 4. Move Passed to Archive
 
 When sure customer is really not interested:
+
 - Change status to Passed
 - Move to Archive
 - Keep inbox clean, see only potential customers
@@ -410,6 +428,7 @@ When sure customer is really not interested:
 ### 5. Analyze data regularly
 
 Check status statistics regularly to:
+
 - Know how many customers are in each stage
 - Find bottlenecks where customers get stuck
 - Adjust sales strategy accordingly
@@ -417,6 +436,7 @@ Check status statistics regularly to:
 ### 6. Don't forget to update status manually
 
 Even though AI assigns status automatically, you should:
+
 - Check and correct if wrong
 - Update when situation changes
 - Use your own judgment
