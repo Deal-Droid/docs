@@ -22,11 +22,18 @@
       "autogenerate": { "directory": "getting-started" }
     },
     {
-      "label": "🔧 Tuning",
+      "label": "🔧 AI Tuning",
       "translations": {
-        "th": "🔧 ปรับแต่งดรอย"
+        "th": "🔧 ปรับแต่ง AI"
       },
       "autogenerate": { "directory": "tuning" }
+    },
+    {
+      "label": "⚙️ Settings",
+      "translations": {
+        "th": "⚙️ การตั้งค่า"
+      },
+      "autogenerate": { "directory": "settings" }
     },
     {
       "label": "📬 FAQ",
