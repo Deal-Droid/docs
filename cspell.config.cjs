@@ -5,10 +5,10 @@ module.exports = {
   ignoreRegExpList: ["/[\\u0E00-\\u0E7F]/g"], // Thai characters
   words: ["axios", "unpatchable"],
 
-  ignoreWords: ["elif"],
+  ignoreWords: ["elif", "vtbot"],
   /**
    ** List of words to always be considered incorrect.
    */
   flagWords: [],
-  ignorePaths: ["AGENTS.md", "package.json", "pnpm-lock.yaml"],
+  ignorePaths: ["package.json", "pnpm-lock.yaml"],
 };
