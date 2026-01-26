@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.68.0",
-    "@astrojs/starlight": "^0.37.1",
+    "@astrojs/starlight": "^0.37.4",
     "@astrojs/starlight-tailwind": "^4.0.2",
     "@tailwindcss/vite": "^4.1.16",
-    "astro": "^5.16.6",
+    "astro": "^5.16.15",
     "astro-embed": "^0.9.1",
     "astro-font": "^1.1.0",
     "dotenv": "^17.2.3",
