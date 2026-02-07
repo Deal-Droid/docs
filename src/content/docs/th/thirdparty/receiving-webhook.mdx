@@ -2,7 +2,7 @@
 title: รับ Webhook ข้อความ
 description: เรียนรู้วิธีรับการแจ้งเตือนข้อความแบบเรียลไทม์จากบอท DealDroid ของคุณผ่าน webhook
 sidebar:
-  order: 3
+  order: 4
 ---
 
 อยากรู้ว่าลูกค้าของคุณส่งข้อความมาเมื่อไหร่ใช่ไหม? Webhook ช่วยให้บอท DealDroid ของคุณส่งการแจ้งเตือนแบบเรียลไทม์ไปยังเซิร์ฟเวอร์ของคุณสำหรับทุกข้อความ — ช่วยให้คุณสร้างการเชื่อมต่อแบบกำหนดเอง ติดตามการสนทนา และสร้างเวิร์กโฟลว์อัตโนมัติที่ทรงพลัง
@@ -224,7 +224,7 @@ function processMessage(message) {
   // Example: Only process messages from humans
   if (message.type === "human") {
     console.log(
-      `Customer ${message.customerId} said: ${message.content.value}`
+      `Customer ${message.customerId} said: ${message.content.value}`,
     );
 
     // Add your custom logic:
@@ -239,7 +239,7 @@ function processMessage(message) {
 app.listen(PORT, () => {
   console.log(`🚀 Webhook server is running on port ${PORT}`);
   console.log(
-    `📡 Ready to receive webhooks at http://localhost:${PORT}/webhook`
+    `📡 Ready to receive webhooks at http://localhost:${PORT}/webhook`,
   );
 });
 ```

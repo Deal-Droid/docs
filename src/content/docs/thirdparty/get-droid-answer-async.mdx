@@ -1,0 +1,759 @@
+---
+title: Get AI Answer Async
+description: Use DealDroid AI asynchronously via Webhook for systems with timeout limitations
+sidebar:
+  order: 2
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+Need DealDroid AI to help generate answers, but don't want to keep your connection open waiting? We've got async AI processing! **Async Answer API** lets you send a request and receive the AI answer via Webhook later — no need to keep a connection open while the AI is thinking!
+
+---
+
+## Best For
+
+Async Answer API is perfect for these scenarios:
+
+- ⏱️ **Systems that need to set short timeouts** — Webhook receivers, Serverless functions, or APIs with timeout limits
+- 📬 **Systems that need request queuing** — For managing load and rate limiting
+- 🚀 **Fire-and-forget integrations** — Send request and receive results via webhook
+- 🔄 **Background processing** — Process AI without blocking or waiting for response
+
+---
+
+## Sync vs Async Comparison
+
+| Feature               | [Sync](/thirdparty/endpoint/#8-get-droid-answer) | Async (this page)                   |
+| --------------------- | ------------------------------------------------ | ----------------------------------- |
+| Response time         | 10-120 seconds (wait for AI)                     | < 100ms (acknowledge instantly)     |
+| AI Response           | In HTTP response                                 | Sent via Webhook                    |
+| Webhook config needed | ❌ No                                            | ✅ Yes                              |
+| Use case              | Real-time chat, need answer immediately          | Background processing, queuing      |
+| Timeout handling      | Must wait until AI finishes                      | Return instantly, no timeout issues |
+
+> **Which one to choose?** If your system can wait 10-120 seconds, use the [Sync version](/thirdparty/endpoint/#8-get-droid-answer) — it's simpler. But if you have timeout limits or need queue systems, use the Async version.
+
+---
+
+## How It Works (Overview)
+
+To understand the difference between Sync and Async, let's look at how both work:
+
+### Synchronous (Wait for Answer)
+
+```
+Third Party → DealDroid API
+              ⏳ Wait for AI thinking (10-120 seconds)
+              ✅ Get answer back immediately
+Third Party ← AI answer
+```
+
+**Steps:**
+
+1. Third Party sends request with question
+2. **Wait** for AI to process (10-120 seconds)
+3. Get answer back immediately in HTTP response
+
+**Pros:** Simple, get answer immediately in one response  
+**Cons:** If timeout is less than 120 seconds, request may timeout
+
+---
+
+### Asynchronous (Receive via Webhook)
+
+```
+Third Party → DealDroid API
+              ✅ Get requestId instantly (< 100ms)
+Third Party ← requestId
+
+              ... AI processes in background (10-120 seconds) ...
+
+Third Party ← Webhook: Answer with requestId
+   Webhook
+```
+
+**Steps:**
+
+1. Third Party sends request with question
+2. Get `requestId` back **instantly** (don't wait for AI)
+3. AI processes in background
+4. When done, system sends **webhook** with answer and `requestId`
+5. Third Party matches `requestId` to know which request this answer is for
+
+**Pros:** No timeout issues, supports queuing  
+**Cons:** Need to configure webhook endpoint and handle async flow
+
+---
+
+## Configuration
+
+### Step 1: Go to Integrations Page
+
+![Integration settings showing When AI Answer Ready section](@/assets/third-party/integration.png)
+
+Navigate to the integration settings page:
+
+1. Log in to your DealDroid dashboard
+2. Go to **Settings > Integrations**
+
+---
+
+### Step 2: Configure "When AI Answer Ready"
+
+In the **"When AI Answer Ready"** section, you'll find fields to configure your webhook:
+
+#### Webhook URL (Required)
+
+The URL where the system will send AI responses when processing is complete.
+
+**Example:**
+
+```
+https://your-server.com/answer-webhook
+```
+
+**Requirements:**
+
+- Must be HTTPS URL (for production)
+- Must accept HTTP POST requests
+- Must return HTTP 2xx to acknowledge (200 OK recommended)
+- Should respond within 5 seconds
+
+**Tips:**
+
+- Use [webhook.site](https://webhook.site) for initial testing
+- Verify URL is accessible from the internet (not localhost)
+- You can use ngrok for local development testing
+
+---
+
+#### Webhook Secret (Optional)
+
+Secret key to verify that requests come from DealDroid
+
+**Example:** `your_secure_secret_key_2026`
+
+**Best practices:**
+
+- Use random string at least 32 characters long
+- Store as environment variable on your server
+- Never commit to version control
+- Rotate periodically for security
+
+**How it works:** The system will append the secret as a query parameter:
+
+```
+https://your-server.com/answer-webhook?secret=your-secret-here
+```
+
+> **Note:** Although the secret is optional, we strongly recommend setting it for security.
+
+---
+
+### Step 3: Test Webhook
+
+After entering your Webhook URL, you can test immediately:
+
+1. Click **"Send Test Answer"** button
+2. System will send test payload to your configured webhook URL
+3. Verify that your webhook received the request and returned 200 OK
+
+<Aside type="tip">
+  Use [webhook.site](https://webhook.site) to view the payload before building
+  your real endpoint
+</Aside>
+
+---
+
+## API Reference
+
+### Endpoint
+
+```
+POST /api/droids/:droidId/endpoint/get-droid-answer-async
+```
+
+Replace `:droidId` with your actual Droid ID.
+
+---
+
+### Authentication
+
+Use Third Party API Key in Authorization header:
+
+```
+Authorization: Bearer {your-api-key}
+```
+
+**How to find API Key:** Go to Automation Panel > "When Receive message from Third Party" → Copy Bearer token
+
+---
+
+### Request Body
+
+```json
+{
+  "humanMessage": {
+    "content": "What's the price?",
+    "type": "human"
+  },
+  "chatHistory": [
+    {
+      "content": "Hello",
+      "type": "human"
+    },
+    {
+      "content": "Hello! Welcome. How can I help you?",
+      "type": "ai"
+    }
+  ]
+}
+```
+
+#### Parameters
+
+| Field                | Type   | Required | Description                                  |
+| -------------------- | ------ | -------- | -------------------------------------------- |
+| humanMessage         | object | ✅ Yes   | Message from user                            |
+| humanMessage.content | string | ✅ Yes   | Message content                              |
+| humanMessage.type    | string | ❌ No    | Message type (default: "human")              |
+| chatHistory          | array  | ❌ No    | Previous conversation history for AI context |
+
+---
+
+### Immediate Response
+
+System will respond immediately after receiving request (within 100ms):
+
+```json
+{
+  "success": true,
+  "requestId": "tpa-cm5xyz123abc456def",
+  "message": "Answer request queued. Response will be sent to your configured webhook."
+}
+```
+
+#### Response Fields
+
+| Field     | Type    | Description                                                 |
+| --------- | ------- | ----------------------------------------------------------- |
+| success   | boolean | Request acceptance status                                   |
+| requestId | string  | ID for tracking request (starts with `tpa-`)                |
+| message   | string  | Description that request is queued and webhook will be sent |
+
+<Aside>
+  Save the `requestId` to match with webhook response you'll receive later
+</Aside>
+
+---
+
+### Error Responses
+
+#### 400 Bad Request - Webhook not configured
+
+```json
+{
+  "error": "Bad Request",
+  "message": "thirdPartyAnswerWebhook is not configured. Please set up the webhook URL in Settings > Integrations before using async answer endpoint."
+}
+```
+
+**Fix:** Configure Webhook URL in Settings > Integrations first
+
+---
+
+#### 400 Bad Request - Missing Test Customer
+
+```json
+{
+  "error": "Bad Request",
+  "message": "Droid Missing Test Customer Id"
+}
+```
+
+**Fix:** Verify your Droid has a Test Customer configured
+
+---
+
+#### 400 Bad Request - Invalid message format
+
+```json
+{
+  "error": "Bad Request",
+  "message": "Invalid humanMessage format"
+}
+```
+
+**Fix:** Verify `humanMessage` has `content` field and is a string
+
+---
+
+#### 401 Unauthorized - Invalid API Key
+
+```json
+{
+  "error": "Unauthorized",
+  "message": "Invalid API key"
+}
+```
+
+**Fix:** Check Bearer token in Authorization header
+
+---
+
+## Webhook Response Format
+
+When AI processing is complete (takes 10-120 seconds), the system will send a POST request to your configured webhook URL.
+
+### Success Response
+
+```json
+{
+  "requestId": "tpa-cm5xyz123abc456def",
+  "droidId": 42,
+  "customerId": 100,
+  "answer": "This product costs $599. We have a 10% discount if you buy 2 or more!",
+  "intents": ["product_inquiry", "pricing"],
+  "executionTime": 2345,
+  "timestamp": "2026-02-07T10:30:00.000Z"
+}
+```
+
+#### Webhook Payload Fields
+
+| Field         | Type     | Description                                        |
+| ------------- | -------- | -------------------------------------------------- |
+| requestId     | string   | ID received when submitting request (for matching) |
+| droidId       | number   | ID of Droid that processed                         |
+| customerId    | number   | ID of Customer (Test Customer)                     |
+| answer        | string   | Answer from AI                                     |
+| intents       | string[] | Intents detected in the answer                     |
+| executionTime | number   | Processing time in milliseconds                    |
+| timestamp     | string   | Response timestamp (ISO 8601 format)               |
+
+---
+
+### Error Response
+
+When processing fails:
+
+```json
+{
+  "requestId": "tpa-cm5xyz123abc456def",
+  "droidId": 42,
+  "customerId": 100,
+  "answer": "",
+  "error": "Failed to generate AI response: timeout",
+  "executionTime": 30000,
+  "timestamp": "2026-02-07T10:30:30.000Z"
+}
+```
+
+#### Error Response Fields
+
+| Field  | Type   | Description                                    |
+| ------ | ------ | ---------------------------------------------- |
+| error  | string | Error message (only present when error occurs) |
+| answer | string | Will be empty string when error occurs         |
+
+> **Error handling:** Check if `error` field exists. If yes, an error occurred. You should retry or log for debugging.
+
+---
+
+### Webhook URL Format (with Secret)
+
+If you configured a secret, the system will append it as a query parameter:
+
+```
+POST https://your-server.com/answer-webhook?secret=your-secret-here
+```
+
+**How to verify:**
+
+```javascript
+// Express.js example
+app.post("/answer-webhook", (req, res) => {
+  const { secret } = req.query;
+
+  if (secret !== process.env.DEALDROID_WEBHOOK_SECRET) {
+    return res.status(401).json({ error: "Invalid secret" });
+  }
+
+  // Process webhook...
+});
+```
+
+---
+
+## Testing Guide
+
+### Method 1: Use webhook.site (Recommended for beginners)
+
+[webhook.site](https://webhook.site) is a free service for receiving and viewing webhook requests.
+
+#### Steps:
+
+1. **Open https://webhook.site**
+
+   The system will automatically create a unique URL, e.g.:
+
+   ```
+   https://webhook.site/abc12345-1234-5678-abcd-1234567890ab
+   ```
+
+2. **Copy URL to DealDroid**
+   - Go to Settings > Integrations
+   - Paste URL in "When AI Answer Ready" > Webhook URL
+   - Click Save
+
+3. **Test with "Send Test Answer" button**
+   - Click button in UI
+   - Go back to webhook.site to see incoming request
+   - Check received payload
+
+4. **Test with real API**
+
+   ```bash
+   curl -X POST "https://your-domain.com/api/droids/123/endpoint/get-droid-answer-async" \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "humanMessage": {
+         "content": "What products do you have?"
+       }
+     }'
+   ```
+
+5. **Wait for AI response at webhook.site**
+   - Takes about 10-120 seconds
+   - You'll see a new POST request
+   - View JSON payload with `answer`, `intents`, `executionTime`
+
+---
+
+### Method 2: Test with cURL (for developers)
+
+#### Basic request:
+
+```bash
+curl -X POST "https://your-domain.com/api/droids/123/endpoint/get-droid-answer-async" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "humanMessage": {
+      "content": "Hello"
+    }
+  }'
+```
+
+#### Request with chat history:
+
+```bash
+curl -X POST "https://your-domain.com/api/droids/123/endpoint/get-droid-answer-async" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "humanMessage": {
+      "content": "What is the price?"
+    },
+    "chatHistory": [
+      {"content": "What products do you have?", "type": "human"},
+      {"content": "We have products A, B, C", "type": "ai"}
+    ]
+  }'
+```
+
+#### Response received (immediately):
+
+```json
+{
+  "success": true,
+  "requestId": "tpa-cm5xyz123abc456def",
+  "message": "Answer request queued. Response will be sent to your configured webhook."
+}
+```
+
+---
+
+### Method 3: Debug Webhooks Page
+
+![Debug Webhooks page showing webhook details](@/assets/third-party/webhook-debug.png)
+
+View all webhook sending history at:
+
+```
+/droids/{droidId}/debug/webhooks
+```
+
+**Information shown:**
+
+- ✅ Webhook URL sent to
+- ✅ HTTP Status received (200, 404, 500, etc.)
+- ✅ Request payload sent
+- ✅ Response body received
+- ✅ Response time (duration)
+- ✅ Error message (if any)
+- ✅ Timestamp of each request
+
+**Use cases:**
+
+- Debug when webhook doesn't work
+- Check actual payload sent
+- View error messages from your server
+- Track webhook history
+
+---
+
+### Method 4: Internal Echo Endpoint (for dev/testing)
+
+DealDroid has an endpoint for echoing webhooks (for testing):
+
+```
+https://your-domain.com/api/droids/{droidId}/test-async-answer-webhook
+```
+
+**How to use:**
+
+1. Use this URL as webhook URL
+2. Requests will be logged in server
+3. View logs for debugging
+
+> **Note:** For development only. Do not use in production.
+
+---
+
+## Best Practices
+
+#### 1. Return 200 Quickly ⚡
+
+```javascript
+// ✅ Good - Return immediately, then process
+res.status(200).json({ received: true });
+setImmediate(() => processAnswer(data));
+
+// ❌ Bad - Process first, then return (slow)
+await processAnswer(data);
+res.status(200).json({ received: true });
+```
+
+**Why?** If your webhook takes too long, DealDroid may timeout and retry sending.
+
+#### 2. Verify Secret Every Time 🔒
+
+```javascript
+// ✅ Good - Verify before doing anything
+if (secret !== process.env.DEALDROID_WEBHOOK_SECRET) {
+  return res.status(401).json({ error: "Invalid secret" });
+}
+
+// ❌ Dangerous - No verification (anyone can call)
+// No secret verification
+```
+
+**Why?** To prevent others from sending fake webhooks.
+
+#### 3. Use requestId for Deduplication 🔄
+
+```javascript
+// ✅ Good - Check if already processed
+const exists = await db.webhooks.findOne({ requestId });
+if (exists) {
+  console.log(`[${requestId}] Already processed, skipping`);
+  return res.status(200).json({ received: true, duplicate: true });
+}
+
+await db.webhooks.create({ requestId, answer, processedAt: new Date() });
+```
+
+**Why?** In case of retry, webhooks may be sent multiple times. Must prevent duplicate processing.
+
+---
+
+## Webhook Log Retention
+
+### Retention Period
+
+- Webhook logs are kept for **7 days**
+- After 7 days, logs are automatically deleted
+- System cleanup runs with scheduled command
+
+### Viewing Logs
+
+View webhook logs in 2 ways:
+
+1. **Debug Webhooks Page** - `/droids/{droidId}/debug/webhooks`
+   - Shows all requests/responses
+   - Filter by status, date range
+   - View details of each webhook
+
+2. **Server Logs** - For admins
+   - Manual command: `node ace cleanup:webhook-logs`
+   - Cron job runs automatically daily
+
+### Best Practices for Logging
+
+- **Keep logs on your side too** - Don't rely only on DealDroid logs
+- **Export important ones** - If webhooks are critical, export and save them
+- **Track requestId** - Use requestId to match between two systems
+
+---
+
+## Frequently Asked Questions (FAQ)
+
+### Q: Why use Async instead of Sync?
+
+**A:** Use Async when:
+
+- Your system has timeout less than 180 seconds (e.g., Serverless functions)
+- Need to queue requests for load management
+- Want fire-and-forget pattern (send then continue other work)
+
+If your system can wait and needs immediate answer, use [Sync version](/thirdparty/endpoint/#8-get-droid-answer) — it's simpler.
+
+---
+
+### Q: Must webhook URL be HTTPS only?
+
+**A:** Yes, for production it must be HTTPS for security. However, for development testing you can use:
+
+- **webhook.site** (automatically HTTPS)
+- **ngrok** for tunneling localhost (provides HTTPS URL)
+
+---
+
+### Q: What happens if my webhook doesn't return 200 OK?
+
+**A:** DealDroid will retry sending the webhook (according to retry policy). If still unsuccessful, it will be logged as failed. You can view it in Debug Webhooks page.
+
+**Tips:** Have your webhook return 200 OK as fast as possible (within 1-2 seconds) then process in background.
+
+---
+
+### Q: How do I know webhooks come from DealDroid?
+
+**A:** Use **Webhook Secret** configured in settings. System will send it as query parameter `?secret=your-secret`. Verify this secret on your server:
+
+```javascript
+if (req.query.secret !== process.env.DEALDROID_WEBHOOK_SECRET) {
+  return res.status(401).json({ error: "Invalid secret" });
+}
+```
+
+---
+
+### Q: Can webhooks be sent multiple times?
+
+**A:** Yes, in cases where:
+
+- Your webhook doesn't return 200 OK
+- Network timeout occurs
+- DealDroid retries due to error
+
+**Fix:** Use `requestId` for deduplication - check if this requestId has been processed. If yes, skip.
+
+---
+
+### Q: How many seconds does AI take to answer?
+
+**A:** Typically takes **10-120 seconds** depending on:
+
+- Question complexity
+- Chat history size
+- AI system load at that time
+
+You can see actual time from `executionTime` field in webhook response (in milliseconds).
+
+---
+
+### Q: Can I test without a real webhook endpoint?
+
+**A:** Yes! Use [webhook.site](https://webhook.site):
+
+1. Open webhook.site → get unique URL
+2. Copy URL to Settings > Integrations
+3. Send request to API
+4. Go back to webhook.site to see payload sent
+
+---
+
+### Q: Is there rate limiting?
+
+**A:** Rate limiting depends on your plan. Contact your DealDroid admin for details.
+
+If you exceed rate limit, you'll get HTTP 429 Too Many Requests.
+
+---
+
+### Q: Where can I view webhook sending logs?
+
+**A:** There are 2 ways:
+
+**1. From Integrations page (shortcut)**
+
+![Link to Debug Webhooks page in Integration page](@/assets/third-party/webhook-debug-link.png)
+
+Click on "View webhook sending history" link in Settings > Integrations under "When AI Answer Ready" section.
+
+**2. Go to Debug Webhooks page directly**
+
+Access at `/droids/{droidId}/debug/webhooks`
+
+**Information shown:**
+
+- All webhooks sent (last 7 days)
+- HTTP status received
+- Request/Response payload
+- Error message (if any)
+- Response time
+
+---
+
+### Q: Can I change webhook URL?
+
+**A:** Yes, go to Settings > Integrations and edit Webhook URL. But you should:
+
+1. Test new URL with "Send Test Answer" button first
+2. Verify URL is accessible from internet
+3. Update secret (if changed)
+
+---
+
+### Q: What if my API Key is compromised?
+
+**A:** Regenerate your API Key immediately:
+
+1. Open **Automation Panel**
+2. Go to "When Receive message from Third Party"
+3. Click **Regenerate** to create new token
+4. Update your applications with new token
+
+⚠️ **Warning:** Old token will be immediately invalidated after regeneration.
+
+---
+
+### Q: Can I use this endpoint with real customers?
+
+**A:** Currently this endpoint uses **Test Customer** only (for testing). If you want to use with real customers, you should use [Send Message endpoint](/thirdparty/endpoint/#6-send-text-message) with [Receiving Webhook](/thirdparty/receiving-webhook/) instead.
+
+---
+
+## All Done! 🎉
+
+**You're ready to use Async Answer API!**
+
+With Async Answer API you can:
+
+- ✅ Use DealDroid AI even with short timeout systems
+- ✅ Queue requests for better load management
+- ✅ Process AI in background without blocking system
+- ✅ Track and debug via Debug Webhooks page
+
+**Next steps:**
+
+1. Configure Webhook URL in Settings > Integrations
+2. Test with webhook.site
+3. Build webhook receiver following Best Practices
+4. Start sending requests and receive AI responses!
+
+Need help? We're here to support you! 😊

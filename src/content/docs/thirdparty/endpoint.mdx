@@ -76,7 +76,7 @@ If you need to generate a new token (e.g., for security reasons):
 
 ## Available API Endpoints
 
-DealDroid provides 9 API endpoints to interact with your bot. Below is an overview of the available endpoints:
+DealDroid provides 10 API endpoints to interact with your bot. Below is an overview of the available endpoints:
 
 ### 1. Get Channels
 
@@ -200,11 +200,11 @@ What should be the next step to close this sale?
 
 **Limits:**
 
-| Limit | Value |
-|-------|-------|
-| Max prompt length | 500 characters |
-| Max chat history context | 50 messages |
-| Max output tokens | 3,000 tokens |
+| Limit                    | Value          |
+| ------------------------ | -------------- |
+| Max prompt length        | 500 characters |
+| Max chat history context | 50 messages    |
+| Max output tokens        | 3,000 tokens   |
 
 ---
 
@@ -249,9 +249,33 @@ Let DealDroid generate AI-powered responses based on chat history and a new mess
 
 **Returns:** AI response, customer insights (intent, language, product keywords), shopping cart data, and address parsing.
 
+> **Note:** This endpoint is **synchronous** (waits for answer immediately, takes 10-180 seconds). If your system has timeout limits or needs background processing, see [Get AI Answer Async](/thirdparty/get-droid-answer-async/) which sends the answer via webhook instead.
+
 ---
 
-### 9. Get Alternative Text
+### 9. Get Droid Answer Async
+
+Get AI answers asynchronously via webhook — perfect for systems with timeout limits.
+
+**Endpoint:** `POST /api/droids/:droidId/endpoint/get-droid-answer-async`
+
+**Use cases:**
+
+- **Systems with short timeouts** — Webhook receivers, Serverless functions, or APIs with timeout less than 180 seconds
+- **Background processing** — Don't wait for answer, get requestId back immediately and receive answer via webhook later
+- **Queue system** — Better load and rate limiting management
+
+**How it works:**
+
+1. Send request with question → Get `requestId` back instantly (< 100ms)
+2. AI processes in background (10-180 seconds)
+3. When done, system sends webhook with answer and `requestId`
+
+**📘 See full details at:** [Get AI Answer Async](/thirdparty/get-droid-answer-async/)
+
+---
+
+### 10. Get Alternative Text
 
 Generate AI-powered alternative text descriptions for images sent by users.
 
@@ -268,12 +292,15 @@ Generate AI-powered alternative text descriptions for images sent by users.
 ## Complete API Documentation
 
 <Aside type="tip">
-**Looking for detailed specifications?** All request/response examples, parameters, and interactive testing are available in our Postman documentation — your single source of truth for the API.
+  **Looking for detailed specifications?** All request/response examples,
+  parameters, and interactive testing are available in our Postman documentation
+  — your single source of truth for the API.
 </Aside>
 
 <CardGrid>
   <Card title="📄 Full API Reference" icon="document">
-    Detailed specifications for all 9 endpoints with complete request/response examples.
+    Detailed specifications for all 9 endpoints with complete request/response
+    examples.
   </Card>
   <Card title="🧪 Interactive Testing" icon="rocket">
     Test endpoints directly in Postman with your own API token.
@@ -287,13 +314,19 @@ Generate AI-powered alternative text descriptions for images sent by users.
 </CardGrid>
 
 <div class="flex flex-col gap-4" style="text-align: left; margin: 2rem 0;">
-  <a href="https://documenter.getpostman.com/view/36788758/2sB3BDJAbP" target="_blank">
-    <img src="/src/assets/third-party/postman-logo.png" alt="Postman Logo" width="200" />
+  <a
+    href="https://documenter.getpostman.com/view/36788758/2sB3BDJAbP"
+    target="_blank"
+  >
+    <img
+      src="/src/assets/third-party/postman-logo.png"
+      alt="Postman Logo"
+      width="200"
+    />
   </a>
-  
-  **[View Full API Documentation on Postman](https://documenter.getpostman.com/view/36788758/2sB3BDJAbP)**
-</div> 
-
+  **[View Full API Documentation on
+  Postman](https://documenter.getpostman.com/view/36788758/2sB3BDJAbP)**
+</div>
 
 ---
 

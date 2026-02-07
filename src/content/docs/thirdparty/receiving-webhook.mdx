@@ -2,7 +2,7 @@
 title: Receiving Message Webhooks
 description: Learn how to receive real-time message notifications from your DealDroid bot via webhooks
 sidebar:
-  order: 3
+  order: 4
 ---
 
 Want to know exactly when your customers send messages? Webhooks let your DealDroid bot send real-time notifications to your server for every message — allowing you to build custom integrations, track conversations, and create powerful automation workflows.
@@ -224,7 +224,7 @@ function processMessage(message) {
   // Example: Only process messages from humans
   if (message.type === "human") {
     console.log(
-      `Customer ${message.customerId} said: ${message.content.value}`
+      `Customer ${message.customerId} said: ${message.content.value}`,
     );
 
     // Add your custom logic:
@@ -239,7 +239,7 @@ function processMessage(message) {
 app.listen(PORT, () => {
   console.log(`🚀 Webhook server is running on port ${PORT}`);
   console.log(
-    `📡 Ready to receive webhooks at http://localhost:${PORT}/webhook`
+    `📡 Ready to receive webhooks at http://localhost:${PORT}/webhook`,
   );
 });
 ```
