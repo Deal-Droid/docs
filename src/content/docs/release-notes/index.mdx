@@ -11,12 +11,34 @@ Stay informed about what's new and how we're constantly improving your experienc
 
 ## 2026
 
-### v0.9.14
+### v1.0.0
+
+**Release date:** 8/Feb/2026
 
 #### 🎉 New Features
+
+- **Third-Party Async API**: Added new endpoint to get AI answers asynchronously via webhook for better integration with systems that have timeout limits
+
+  ![การตั้งค่า Integration แสดงส่วน When AI Answer Ready](@/assets/third-party/integration_th.png)
+
+- **AI Provider Redundancy**: Implemented a redundancy system that selects the most available AI provider at any given time, ensuring stable AI responses and reducing customer wait times
+
+- **Easy Control Bot Behavior**: Introduced a feature that allows you to set conditions for AI responses without manually defining them in intents or important settings, simplifying configuration and enhancing confidence in AI replies
+
+#### ⚡ Improvements
+
+- **Third-Party Webhook Debugging**: Improved the debugging system for webhooks sent
+
+### v0.9.14
+
+**Release date:** 14/Jan/2026
+
+#### 🎉 New Features
+
 - **Instant Answer**: Now you can configure it to work only when it's the customer's first message
 
 #### ⚡ Improvements
+
 - **i18n**: Translated Thai, Chinese, and Japanese for Edit pages across all sections
   ![Translated edit page](@/assets/release_notes/2026/i18n.png)
 - **Refactor**: Improved language used in code to ensure correct spelling throughout, including automated language checking in CI/CD pipeline
@@ -26,6 +48,7 @@ Stay informed about what's new and how we're constantly improving your experienc
 ## 2025
 
 ### v0.9.11
+
 **Release date:** 23/Dec/2025
 
 #### 🎉 New Features
