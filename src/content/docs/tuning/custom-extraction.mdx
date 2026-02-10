@@ -40,7 +40,7 @@ Whether it's budget, pet names, purchase urgency, or any data that matters to yo
 **Sample conversation:**
 
 ```
-Customer: Hi, I'm John. I have a dog named Brownie, 3 years old. 
+Customer: Hi, I'm John. I have a dog named Brownie, 3 years old.
           I need dog food urgently.
 
 AI: Hello John! Nice to meet Brownie! 🐕
@@ -72,7 +72,7 @@ AI: Hello John! Nice to meet Brownie! 🐕
 **Sample conversation:**
 
 ```
-Customer: I'm interested in a laptop. Budget is around $1,000. 
+Customer: I'm interested in a laptop. Budget is around $1,000.
           Need it by next week. A friend recommended you from Instagram.
 
 AI: Thank you for your interest!
@@ -193,13 +193,13 @@ The name used to identify this field — should be short, concise, and clear
 
 **Guide writing examples:**
 
-| ❌ Bad | ✅ Good |
-|--------|---------|
+| ❌ Bad            | ✅ Good                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------- |
 | "Customer budget" | "Customer's stated budget or spending limit (e.g., 5000 baht, under $100, no budget limit)" |
-| "Pet information" | "Customer's pet name (e.g., Brownie, Fluffy, Max)" |
-| "Date" | "Date the customer needs delivery (e.g., next Monday, Feb 15, urgent)" |
-| "Company" | "Customer's company name, shop name, or organization they represent" |
-| "Number" | "Number of people for dining reservation (e.g., 2 people, party of 10)" |
+| "Pet information" | "Customer's pet name (e.g., Brownie, Fluffy, Max)"                                          |
+| "Date"            | "Date the customer needs delivery (e.g., next Monday, Feb 15, urgent)"                      |
+| "Company"         | "Customer's company name, shop name, or organization they represent"                        |
+| "Number"          | "Number of people for dining reservation (e.g., 2 people, party of 10)"                     |
 
 **Tips for writing Guide:**
 
@@ -210,7 +210,8 @@ The name used to identify this field — should be short, concise, and clear
 When finished, click **Save** or **Add** button
 
 <Aside type="caution">
-**Limitation:** You can create a maximum of **10 fields** per Droid. The system will show a counter "X / 10 fields" to show remaining slots.
+  **Limitation:** You can create a maximum of **10 fields** per Droid. The
+  system will show a counter "X / 10 fields" to show remaining slots.
 </Aside>
 
 ---
@@ -376,6 +377,7 @@ AI: (Remembers Budget: "$5,000")
 **AI extracts data from conversations only — It doesn't ask customers**
 
 This system is designed to **listen** and **extract** information from what customers say, not to ask additional questions.
+
 </Aside>
 
 **What this means:**
@@ -400,7 +402,8 @@ Intent: Greeting
 Goal: Greet customers in a friendly way
 
 Strategy:
- - Casually ask for basic customer information like name, pet type, or pet age
+
+- Casually ask for basic customer information like name, pet type, or pet age
 ```
 
 **2. Add to Important Instructions**
@@ -421,14 +424,14 @@ Ask naturally and don't make it feel like filling out a form
 
 ### Comparison: 3 Approaches to Collecting Customer Data
 
-| Approach | 1. Extraction Fields Only | 2. Extraction + Intent | 3. Extraction + Important |
-|----------|---------------------------|------------------------|---------------------------|
-| **Does AI ask?** | ❌ Doesn't ask | ✅ Asks only in specific Intents | ✅ Asks in all Intents |
-| **Extracts when customer speaks?** | ✅ Always | ✅ Always | ✅ Always |
-| **Best for** | Customers usually provide data voluntarily | Want to ask only in certain situations | Need complete data every time |
-| **Example** | Customer says "budget $5000" AI saves it | Only asks during Greeting, not in other intents | Asks in all intents regardless of topic |
-| **Pros** | Non-intrusive, natural | Flexible, ask only when appropriate | Gets complete data for sure |
-| **Cons** | May miss some data | Need to configure multiple Intents | May feel like interrogation if too many questions |
+| Approach                           | 1. Extraction Fields Only                  | 2. Extraction + Intent                          | 3. Extraction + Important                         |
+| ---------------------------------- | ------------------------------------------ | ----------------------------------------------- | ------------------------------------------------- |
+| **Does AI ask?**                   | ❌ Doesn't ask                             | ✅ Asks only in specific Intents                | ✅ Asks in all Intents                            |
+| **Extracts when customer speaks?** | ✅ Always                                  | ✅ Always                                       | ✅ Always                                         |
+| **Best for**                       | Customers usually provide data voluntarily | Want to ask only in certain situations          | Need complete data every time                     |
+| **Example**                        | Customer says "budget $5000" AI saves it   | Only asks during Greeting, not in other intents | Asks in all intents regardless of topic           |
+| **Pros**                           | Non-intrusive, natural                     | Flexible, ask only when appropriate             | Gets complete data for sure                       |
+| **Cons**                           | May miss some data                         | Need to configure multiple Intents              | May feel like interrogation if too many questions |
 
 > **Important:** Regardless of approach, **Extraction Fields always auto-extract** when customers mention data — even if AI doesn't ask
 
@@ -503,7 +506,8 @@ Custom extraction data is reset when:
 ## Technical Notes (For Advanced Users)
 
 <Aside type="tip">
-This section is for users who want to understand how things work behind the scenes — **not required reading for normal use**
+  This section is for users who want to understand how things work behind the
+  scenes — **not required reading for normal use**
 </Aside>
 
 ### Data Structure
