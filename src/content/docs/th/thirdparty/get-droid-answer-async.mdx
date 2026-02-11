@@ -310,27 +310,75 @@ Authorization: Bearer {your-api-key}
 
 ```json
 {
-  "requestId": "tpa-cm5xyz123abc456def",
-  "droidId": 42,
-  "customerId": 100,
+  "requestId": "tpa-d5cacv27v60xfhlqpap1gm76",
+  "droidId": 5,
+  "customerId": 5,
+  "responses": [
+    {
+      "lc": 1,
+      "type": "constructor",
+      "id": ["langchain_core", "messages", "AIMessage"],
+      "kwargs": {
+        "content": "สินค้านี้ราคา 599 บาทครับ มีโปรโมชั่นลด 10% ถ้าซื้อ 2 ชิ้นขึ้นไปครับ",
+        "additional_kwargs": {},
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "response_metadata": {}
+      }
+    }
+  ],
+  "addressParsing": {
+    "street_address": "",
+    "subdistrict": "",
+    "district": "",
+    "city": "",
+    "postal_code": "",
+    "country": ""
+  },
+  "customerInsight": {
+    "forbidden_topics": "no",
+    "user_intent": "ถามเกี่ยวกับราคาสินค้า",
+    "intents": ["product_inquiry"],
+    "product_keyword": [],
+    "user_language": "Thai",
+    "contact_info": {
+      "name": "",
+      "phone": "",
+      "email": ""
+    },
+    "has_extractable_info": false
+  },
+  "shoppingCart": {
+    "products": [],
+    "shippingFee": "10",
+    "grandTotal": "0.00 THB"
+  },
+  "customExtractedInfo": {},
   "answer": "สินค้านี้ราคา 599 บาทครับ มีโปรโมชั่นลด 10% ถ้าซื้อ 2 ชิ้นขึ้นไปครับ",
-  "intents": ["product_inquiry", "pricing"],
-  "executionTime": 2345,
-  "timestamp": "2026-02-07T10:30:00.000Z"
+  "intents": ["product_inquiry"],
+  "executionTime": 13301,
+  "timestamp": "2026-02-11T03:20:24.267Z"
 }
 ```
 
 #### Webhook Payload Fields
 
-| Field         | Type     | Description                                      |
-| ------------- | -------- | ------------------------------------------------ |
-| requestId     | string   | ID ที่ได้รับตอน submit request (ใช้สำหรับ match) |
-| droidId       | number   | ID ของ Droid ที่ประมวลผล                         |
-| customerId    | number   | ID ของ Customer (Test Customer)                  |
-| answer        | string   | คำตอบจาก AI                                      |
-| intents       | string[] | Intent ที่ตรวจพบในคำตอบ                          |
-| executionTime | number   | เวลาที่ใช้ในการประมวลผล (milliseconds)           |
-| timestamp     | string   | เวลาที่ส่ง response (ISO 8601 format)            |
+| Field               | Type     | Description                                                         |
+| ------------------- | -------- | ------------------------------------------------------------------- |
+| requestId           | string   | ID ที่ได้รับตอน submit request (ใช้สำหรับ match)                    |
+| droidId             | number   | ID ของ Droid ที่ประมวลผล                                            |
+| customerId          | number   | ID ของ Customer (Test Customer)                                     |
+| responses           | array    | คำตอบจาก AI แบบแยกตาม paragraph (ต้องขุดเข้าไปที่ `kwargs.content`) |
+| addressParsing      | object   | ข้อมูลที่สกัดจากที่อยู่ (ถ้ามี)                                     |
+| customerInsight     | object   | ข้อมูล insight ของลูกค้า (intent, language, contact info)           |
+| shoppingCart        | object   | ข้อมูลตะกร้าสินค้า                                                  |
+| customExtractedInfo | object   | ข้อมูลที่สกัดตาม Custom Extraction ที่ตั้งค่าไว้                    |
+| answer              | string   | **คำตอบจาก AI แบบ raw text** (ใช้งานง่ายที่สุด)                     |
+| intents             | string[] | Intent ที่ตรวจพบในคำตอบ                                             |
+| executionTime       | number   | เวลาที่ใช้ในการประมวลผล (milliseconds)                              |
+| timestamp           | string   | เวลาที่ส่ง response (ISO 8601 format)                               |
+
+> **💡 Tip:** ถ้าต้องการเอาเฉพาะคำตอบ ใช้ field `answer` ได้เลย ไม่ต้องขุดเข้าไปใน `responses` array
 
 ---
 

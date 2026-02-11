@@ -310,27 +310,75 @@ When AI processing is complete (takes 10-120 seconds), the system will send a PO
 
 ```json
 {
-  "requestId": "tpa-cm5xyz123abc456def",
-  "droidId": 42,
-  "customerId": 100,
+  "requestId": "tpa-d5cacv27v60xfhlqpap1gm76",
+  "droidId": 5,
+  "customerId": 5,
+  "responses": [
+    {
+      "lc": 1,
+      "type": "constructor",
+      "id": ["langchain_core", "messages", "AIMessage"],
+      "kwargs": {
+        "content": "This product costs $599. We have a 10% discount if you buy 2 or more!",
+        "additional_kwargs": {},
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "response_metadata": {}
+      }
+    }
+  ],
+  "addressParsing": {
+    "street_address": "",
+    "subdistrict": "",
+    "district": "",
+    "city": "",
+    "postal_code": "",
+    "country": ""
+  },
+  "customerInsight": {
+    "forbidden_topics": "no",
+    "user_intent": "Asking about product pricing",
+    "intents": ["product_inquiry"],
+    "product_keyword": [],
+    "user_language": "English",
+    "contact_info": {
+      "name": "",
+      "phone": "",
+      "email": ""
+    },
+    "has_extractable_info": false
+  },
+  "shoppingCart": {
+    "products": [],
+    "shippingFee": "10",
+    "grandTotal": "0.00 THB"
+  },
+  "customExtractedInfo": {},
   "answer": "This product costs $599. We have a 10% discount if you buy 2 or more!",
-  "intents": ["product_inquiry", "pricing"],
-  "executionTime": 2345,
-  "timestamp": "2026-02-07T10:30:00.000Z"
+  "intents": ["product_inquiry"],
+  "executionTime": 13301,
+  "timestamp": "2026-02-11T03:20:24.267Z"
 }
 ```
 
 #### Webhook Payload Fields
 
-| Field         | Type     | Description                                        |
-| ------------- | -------- | -------------------------------------------------- |
-| requestId     | string   | ID received when submitting request (for matching) |
-| droidId       | number   | ID of Droid that processed                         |
-| customerId    | number   | ID of Customer (Test Customer)                     |
-| answer        | string   | Answer from AI                                     |
-| intents       | string[] | Intents detected in the answer                     |
-| executionTime | number   | Processing time in milliseconds                    |
-| timestamp     | string   | Response timestamp (ISO 8601 format)               |
+| Field               | Type     | Description                                                         |
+| ------------------- | -------- | ------------------------------------------------------------------- |
+| requestId           | string   | ID received when submitting request (for matching)                  |
+| droidId             | number   | ID of Droid that processed                                          |
+| customerId          | number   | ID of Customer (Test Customer)                                      |
+| responses           | array    | AI responses split by paragraph (need to dig into `kwargs.content`) |
+| addressParsing      | object   | Extracted address information (if any)                              |
+| customerInsight     | object   | Customer insights (intent, language, contact info)                  |
+| shoppingCart        | object   | Shopping cart information                                           |
+| customExtractedInfo | object   | Data extracted based on Custom Extraction settings                  |
+| answer              | string   | **AI answer as raw text** (easiest to use)                          |
+| intents             | string[] | Intents detected in the answer                                      |
+| executionTime       | number   | Processing time in milliseconds                                     |
+| timestamp           | string   | Response timestamp (ISO 8601 format)                                |
+
+> **💡 Tip:** If you just need the answer, use the `answer` field directly. No need to dig into the `responses` array.
 
 ---
 
