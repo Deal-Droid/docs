@@ -1,0 +1,61 @@
+{
+    "frontMatter.content.pageFolders": [
+        {
+            "title": "docs",
+            "path": "[[workspace]]/src/content/docs"
+        },
+        {
+            "title": "tuning",
+            "path": "[[workspace]]/src/content/docs/tuning"
+        },
+        {
+            "title": "settings",
+            "path": "[[workspace]]/src/content/docs/settings"
+        },
+        {
+            "title": "thirdparty",
+            "path": "[[workspace]]/src/content/docs/thirdparty"
+        },
+        {
+            "title": "release-notes",
+            "path": "[[workspace]]/src/content/docs/release-notes"
+        },
+        {
+            "title": "getting-started",
+            "path": "[[workspace]]/src/content/docs/getting-started"
+        },
+        {
+            "title": "faq",
+            "path": "[[workspace]]/src/content/docs/faq"
+        },
+        {
+            "title": "thirdparty",
+            "path": "[[workspace]]/src/content/docs/th/thirdparty"
+        },
+        {
+            "title": "release-notes",
+            "path": "[[workspace]]/src/content/docs/th/release-notes"
+        },
+        {
+            "title": "tuning",
+            "path": "[[workspace]]/src/content/docs/th/tuning"
+        },
+        {
+            "title": "settings",
+            "path": "[[workspace]]/src/content/docs/th/settings"
+        },
+        {
+            "title": "getting-started",
+            "path": "[[workspace]]/src/content/docs/th/getting-started"
+        },
+        {
+            "title": "faq",
+            "path": "[[workspace]]/src/content/docs/th/faq"
+        }
+    ],
+    "frontMatter.content.publicFolder": {
+        "path": "src/assets",
+        "relative": true
+    },
+    "frontMatter.git.enabled": true
+}
